@@ -42,7 +42,7 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="./assets/images/profile.png" alt="James Clarke (hello)" width="80">
+          <img src="./assets/images/profile.png" alt="James Clarke" width="80">
         </figure>
 
         <div class="info-content">
@@ -74,7 +74,7 @@
             <div class="contact-info">
               <p class="contact-title">Email</p>
 
-              <a href="mailto:jimmyclarke2006@icloud.com" class="contact-link">jimmyclarke2006@icloud.com</a>
+              <a href="mailto:james.clarke.mail@icloud.com" class="contact-link">james.clarke.mail@icloud.com</a>
             </div>
 
           </li>
@@ -610,19 +610,22 @@
           <form action="#" class="form" data-form>
 
             <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+              <input type="text" name="fullname" class="form-input" placeholder="Full name" aria-label="Full name" autocomplete="name" required data-form-input>
 
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+              <input type="email" name="email" class="form-input" placeholder="Email address" aria-label="Email address" autocomplete="email" required data-form-input>
             </div>
 
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+            <textarea name="message" class="form-input" placeholder="Your Message" aria-label="Your message" required data-form-input></textarea>
 
             <button class="form-btn" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
+              <span>Open Email Draft</span>
             </button>
 
           </form>
+
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          <p class="form-fallback">Prefer email? <a href="mailto:james.clarke.mail@icloud.com" data-form-mailto>Open a message to James</a>.</p>
 
         </section>
 

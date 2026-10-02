@@ -45,8 +45,26 @@ form?.addEventListener('input', () => {
 
 form?.addEventListener('submit', (event) => {
   event.preventDefault();
-  const activePage = document.querySelector('[data-page].active')?.dataset.page;
-  history.replaceState(null, '', `${window.location.pathname}${activePage ? `#${activePage}` : ''}`);
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const formData = new FormData(form);
+  const subject = `Portfolio contact from ${formData.get('fullname')}`;
+  const body = [
+    `Name: ${formData.get('fullname')}`,
+    `Email: ${formData.get('email')}`,
+    '',
+    formData.get('message'),
+  ].join('\n');
+  const mailtoUrl = `mailto:james.clarke.mail@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const status = document.querySelector('[data-form-status]');
+  const fallbackLink = document.querySelector('[data-form-mailto]');
+
+  if (fallbackLink) fallbackLink.href = mailtoUrl;
+  if (status) status.textContent = 'Your email app should open with your message ready. Review it, then send.';
+  window.location.href = mailtoUrl;
 });
 
 const pages = document.querySelectorAll('[data-page]');
