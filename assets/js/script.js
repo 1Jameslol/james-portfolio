@@ -99,7 +99,7 @@ const terminalInput = document.querySelector('[data-terminal-input]');
 const terminalOutput = document.querySelector('[data-terminal-output]');
 const terminalPrompt = document.querySelector('[data-terminal-prompt]');
 const terminalHistory = [];
-const terminalCommandNames = ['help', 'whoami', 'pwd', 'ls', 'cd', 'cat', 'projects', 'resume', 'contact', 'clear'];
+const terminalCommandNames = ['help', 'whoami', 'pwd', 'ls', 'cd', 'cat', 'projects', 'resume', 'contact', 'nextpage', 'previouspage', 'prevpage', 'clear'];
 let historyIndex = 0;
 let lastTabValue = '';
 let currentDirectory = [];
@@ -170,16 +170,19 @@ const writeTerminalLine = (text, className = '') => {
   line.className = `terminal-line ${className}`.trim();
   line.textContent = text;
   terminalOutput.append(line);
-  while (terminalOutput.children.length > 50) terminalOutput.firstElementChild?.remove();
+  while (terminalOutput.children.length > 8) terminalOutput.firstElementChild?.remove();
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
 };
 
 const terminalCommands = {
-  help: 'Commands: help, whoami, pwd, ls [path], cd [directory], cat <file>, open <file>, projects, resume, contact, clear\nTry: cd projects/Linux Homelab Infrastructure, then ls and cat README.md.',
+  help: 'Commands: help, whoami, pwd, ls [path], cd [directory], cat <file>, open <file>, projects, resume, contact, nextpage, previouspage, clear\nTry: cd projects/Linux Homelab Infrastructure, then ls and cat README.md.',
   whoami: 'James Clarke — Deputy System Administrator with SDSU Cyber Defense Team.',
   projects: 'Opening the Projects page...',
   resume: 'Opening the Resume page...',
   contact: 'Opening the Contact page...',
+  nextpage: 'Opening the next page...',
+  previouspage: 'Opening the previous page...',
+  prevpage: 'Opening the previous page...',
 };
 
 const updateTerminalPrompt = () => {
@@ -191,6 +194,14 @@ const terminalNavigate = (page) => {
   const link = [...document.querySelectorAll('[data-nav-link]')]
     .find((navLink) => navLink.textContent.trim().toLowerCase() === page);
   link?.click();
+};
+
+const terminalNavigateRelative = (direction) => {
+  const pageNames = [...pages].map((page) => page.dataset.page);
+  const activeIndex = pageNames.findIndex((page) => document.querySelector(`[data-page="${page}"]`)?.classList.contains('active'));
+  if (activeIndex < 0) return;
+  const nextIndex = (activeIndex + direction + pageNames.length) % pageNames.length;
+  terminalNavigate(pageNames[nextIndex]);
 };
 
 const terminalPathName = (path) => {
@@ -334,6 +345,10 @@ terminalForm?.addEventListener('submit', (event) => {
   else if (response === undefined) writeTerminalLine(`command not found or invalid arguments: ${command}. Type 'help' to see available commands.`);
   if (['projects', 'resume', 'contact'].includes(normalizedCommand)) {
     terminalNavigate(normalizedCommand === 'projects' ? 'portfolio' : normalizedCommand);
+  } else if (normalizedCommand === 'nextpage' && args.length === 0) {
+    terminalNavigateRelative(1);
+  } else if (['previouspage', 'prevpage'].includes(normalizedCommand) && args.length === 0) {
+    terminalNavigateRelative(-1);
   }
 });
 
