@@ -99,7 +99,7 @@ const terminalInput = document.querySelector('[data-terminal-input]');
 const terminalOutput = document.querySelector('[data-terminal-output]');
 const terminalPrompt = document.querySelector('[data-terminal-prompt]');
 const terminalHistory = [];
-const terminalCommandNames = ['help', 'whoami', 'pwd', 'ls', 'cd', 'cat', 'projects', 'resume', 'contact', 'nextpage', 'previouspage', 'prevpage', 'clear'];
+const terminalCommandNames = ['help', 'whoami', 'pwd', 'hostname', 'date', 'uname', 'history', 'which', 'ls', 'tree', 'cd', 'cat', 'head', 'tail', 'less', 'more', 'wc', 'file', 'echo', 'projects', 'resume', 'contact', 'nextpage', 'previouspage', 'prevpage', 'clear'];
 let historyIndex = 0;
 let lastTabValue = '';
 let currentDirectory = [];
@@ -175,8 +175,11 @@ const writeTerminalLine = (text, className = '') => {
 };
 
 const terminalCommands = {
-  help: 'Commands: help, whoami, pwd, ls [path], cd [directory], cat <file>, open <file>, projects, resume, contact, nextpage, previouspage, clear\nTry: cd projects/Linux Homelab Infrastructure, then ls and cat README.md.',
+  help: 'Commands: echo, pwd, ls, cd, cat, head, tail, less, more, wc, file, tree, history, date, uname, hostname, which, whoami, clear\nNavigation: projects, resume, contact, nextpage, previouspage\nTry: cd projects/Linux Homelab Infrastructure, then ls and cat README.md.',
   whoami: 'James Clarke — Deputy System Administrator with SDSU Cyber Defense Team.',
+  hostname: 'james-portfolio',
+  uname: 'PortfolioOS (simulated terminal)',
+  'uname -a': 'PortfolioOS james-portfolio browser x86_64 simulated',
   projects: 'Opening the Projects page...',
   resume: 'Opening the Resume page...',
   contact: 'Opening the Contact page...',
@@ -290,6 +293,27 @@ const terminalCompletePath = (input, directoryOnly) => {
   return matches;
 };
 
+const terminalReadFile = (path, commandName) => {
+  const resolved = terminalResolvePath(path);
+  if (!resolved) return { error: `${commandName}: ${path}: no such file or directory` };
+  if (resolved.node.type === 'directory') return { error: `${commandName}: ${path}: is a directory` };
+  return { content: resolved.node.content ?? '' };
+};
+
+const terminalTreeLines = (node, prefix = '') => {
+  if (node.type !== 'directory') return [];
+  const entries = Object.entries(node.children ?? {});
+  return entries.flatMap(([key, entry], index) => {
+    const last = index === entries.length - 1;
+    const name = entry.name ?? key;
+    const lines = [`${prefix}${last ? '└── ' : '├── '}${entry.type === 'directory' ? `${name}/` : name}`];
+    if (entry.type === 'directory') {
+      lines.push(...terminalTreeLines(entry, `${prefix}${last ? '    ' : '│   '}`));
+    }
+    return lines;
+  });
+};
+
 const terminalOpenFile = (node, path) => {
   if (node.type === 'directory') {
     currentDirectory = path;
@@ -326,6 +350,53 @@ terminalForm?.addEventListener('submit', (event) => {
     const path = args.join(' ') || '.';
     const resolved = terminalResolvePath(path);
     response = resolved ? terminalListDirectory(resolved.node, resolved.path) : `ls: no such path: ${path}`;
+  } else if (normalizedCommand === 'echo') {
+    response = args.join(' ');
+  } else if (normalizedCommand === 'date' && args.length === 0) {
+    response = new Date().toString();
+  } else if (normalizedCommand === 'uname' && (args.length === 0 || args.length === 1 && args[0] === '-a')) {
+    response = terminalCommands[args.length ? 'uname -a' : 'uname'];
+  } else if (normalizedCommand === 'history' && args.length === 0) {
+    const firstVisibleEntry = Math.max(0, terminalHistory.length - 8);
+    response = terminalHistory.slice(firstVisibleEntry)
+      .map((entry, index) => `${firstVisibleEntry + index + 1}  ${entry}`)
+      .join('\n');
+  } else if (normalizedCommand === 'which' && args.length === 1) {
+    response = terminalCommandNames.includes(args[0]) ? `/usr/bin/${args[0]}` : `which: no ${args[0]} in simulated PATH`;
+  } else if (normalizedCommand === 'tree' && args.length <= 1) {
+    const path = args[0] ?? '.';
+    const resolved = terminalResolvePath(path);
+    response = !resolved
+      ? `tree: ${path}: no such directory`
+      : resolved.node.type !== 'directory'
+        ? `tree: ${path}: not a directory`
+        : [path === '.' ? '.' : path, ...terminalTreeLines(resolved.node)].join('\n');
+  } else if (['cat', 'head', 'tail', 'less', 'more', 'wc', 'file'].includes(normalizedCommand)) {
+    const countOption = ['head', 'tail'].includes(normalizedCommand) && args[0] === '-n';
+    const count = countOption ? Number(args[1]) : 10;
+    const path = countOption ? args[2] : args[0];
+    if ((normalizedCommand === 'head' || normalizedCommand === 'tail') && (!Number.isInteger(count) || count < 0)) {
+      response = `${normalizedCommand}: invalid line count`;
+    } else if (!path || (countOption ? args.length !== 3 : args.length !== 1)) {
+      response = `${normalizedCommand}: expected ${normalizedCommand === 'head' || normalizedCommand === 'tail' ? '[-n count] ' : ''}<file>`;
+    } else {
+      const result = terminalReadFile(path, normalizedCommand);
+      if (result.error) response = result.error;
+      else if (normalizedCommand === 'file') {
+        const fileType = path.toLowerCase().endsWith('.pdf') ? 'PDF document' : 'ASCII text';
+        response = `${path}: ${fileType}`;
+      }
+      else if (normalizedCommand === 'wc') {
+        const lines = result.content ? result.content.split('\n').length : 0;
+        const words = result.content.trim() ? result.content.trim().split(/\s+/).length : 0;
+        response = `${lines} ${words} ${new TextEncoder().encode(result.content).length} ${path}`;
+      } else if (normalizedCommand === 'head' || normalizedCommand === 'tail') {
+        const lines = result.content.split('\n');
+        response = (normalizedCommand === 'head' ? lines.slice(0, count) : lines.slice(-count || lines.length)).join('\n');
+      } else {
+        response = result.content;
+      }
+    }
   } else if (normalizedCommand === 'cd') {
     const path = args.join(' ') || '~';
     response = terminalSetDirectory(path) ? '' : `cd: no such directory: ${path}`;
@@ -341,7 +412,7 @@ terminalForm?.addEventListener('submit', (event) => {
     response = terminalCommands[normalizedCommand];
   }
 
-  if (response) writeTerminalLine(response);
+  if (response || normalizedCommand === 'echo') writeTerminalLine(response ?? '');
   else if (response === undefined) writeTerminalLine(`command not found or invalid arguments: ${command}. Type 'help' to see available commands.`);
   if (['projects', 'resume', 'contact'].includes(normalizedCommand)) {
     terminalNavigate(normalizedCommand === 'projects' ? 'portfolio' : normalizedCommand);
@@ -369,7 +440,7 @@ terminalInput?.addEventListener('keydown', (event) => {
       : 0;
     const token = value.slice(tokenStart).replace(/\/$/, '');
     const candidates = isCompletingArgument
-      ? ['cd', 'cat', 'open'].includes(command.toLowerCase())
+        ? ['cd', 'cat', 'head', 'tail', 'less', 'more', 'wc', 'file', 'open', 'tree', 'ls'].includes(command.toLowerCase())
         ? terminalCompletePath(value.slice(argumentStart, slashIndex >= argumentStart ? slashIndex + 1 : value.length), command.toLowerCase() === 'cd')
         : []
       : terminalCommandNames;
