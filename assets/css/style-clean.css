@@ -146,6 +146,8 @@ article.active { display: block; animation: fade .5s ease both; }
 .article-title::after { display: block; width: 32px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--green); content: ""; }
 .about-text, .service-item-text, .timeline-text { color: var(--green-dim); font-size: 14px; line-height: 1.7; }
 .about-text { margin-bottom: 34px; }
+.resume-download { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 10px 14px; border: 1px solid var(--green-dim); border-radius: 4px; color: var(--green); background: var(--panel-light); font-size: 13px; transition: color var(--speed), background var(--speed); }
+.resume-download:hover { color: var(--bg); background: var(--green); }
 .service-title, .skills-title, .form-title { margin: 0 0 18px; color: var(--text); font-size: 20px; }
 .service-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .service-item { display: flex; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); transition: border-color var(--speed), transform var(--speed); }
