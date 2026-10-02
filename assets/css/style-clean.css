@@ -127,7 +127,7 @@ article.active { display: block; animation: fade .5s ease both; }
 .social-list { display: flex; gap: 14px; }
 .social-link { color: var(--green-dim); font-size: 20px; transition: color var(--speed); }
 .social-link img { width: 20px; height: 20px; }
-.service-icon-box img, .project-img img, .social-link img { filter: grayscale(1); }
+.service-icon-box img, .social-link img { filter: grayscale(1); }
 .social-link:hover { color: var(--green); }
 
 .main-content { width: 100%; }

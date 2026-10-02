@@ -138,6 +138,26 @@ const terminalFileSystem = {
             },
           },
         },
+        'sdsu-infrastructure-lab': {
+          type: 'directory',
+          name: 'SDSU Infrastructure Lab',
+          children: {
+            'README.md': {
+              type: 'file',
+              content: [
+                '# SDSU Infrastructure Lab',
+                '',
+                'System Administrator · January 2026 — May 2026',
+                '',
+                'Built a multi-OS lab with DNS, LDAP, PKI, SMTP/IMAP, NFS, nginx/Docker, and centralized logging.',
+                '',
+                'Configured UNIX/Linux servers for authentication, mail, file sharing, web hosting, containers, and remote access.',
+                '',
+                'Deployed a multi-node Kubernetes cluster with fault-tolerant web services and automated failover.',
+              ].join('\n'),
+            },
+          },
+        },
       },
     },
     'resume.pdf': {
