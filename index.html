@@ -477,86 +477,38 @@
 
         <section class="projects">
 
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Infrastructure</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Infrastructure</button>
-              </li>
-
-            </ul>
-
-          </div>
-
           <ul class="project-list">
 
             <li class="project-item  active" data-filter-item data-category="infrastructure">
-              <a href="#">
-
+              <div class="project-detail">
                 <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-unix.svg" alt="Linux homelab infrastructure" loading="lazy">
+                  <img src="./assets/images/project-homelab.jpg" alt="Laptop terminal showing iptables firewall rules and network connectivity checks" loading="lazy">
                 </figure>
 
-                <h3 class="project-title">Linux Homelab Infrastructure</h3>
+                <div class="project-content">
+                  <p class="project-category">Personal Infrastructure Project</p>
+                  <h3 class="project-title">Linux Homelab Infrastructure</h3>
+                  <p class="project-description">
+                    Built and secured Ubuntu services on Apple T2 hardware, using the homelab to practice Linux administration, network access, file sharing, and system troubleshooting.
+                  </p>
 
-                <p class="project-category">Infrastructure</p>
-                <p class="project-description">
-                  Built and secured Ubuntu services on Apple T2 hardware, using Samba, WireGuard, iptables, and CLI-based troubleshooting.
-                </p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="infrastructure">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
+                  <div class="project-detail-grid">
+                    <section class="project-detail-section">
+                      <h4>Services &amp; Access</h4>
+                      <p>Configured Samba file sharing and WireGuard for VPN connectivity.</p>
+                    </section>
+                    <section class="project-detail-section">
+                      <h4>Security &amp; Operations</h4>
+                      <p>Used iptables firewall rules and CLI-based troubleshooting to administer and secure the Ubuntu environment.</p>
+                    </section>
                   </div>
 
-                  <img src="./assets/images/project-unix.svg" alt="Ubuntu Samba file server" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Samba File Server</h3>
-
-                <p class="project-category">Infrastructure</p>
-                <p class="project-description">
-                  Configured Samba file sharing on Ubuntu as part of a secured homelab, with firewall rules and command-line administration.
-                </p>
-
-              </a>
+                  <div class="project-stack">
+                    <h4>Technology</h4>
+                    <p>Ubuntu · Apple T2 hardware · Samba · WireGuard · iptables · CLI</p>
+                  </div>
+                </div>
+              </div>
             </li>
 
           </ul>
