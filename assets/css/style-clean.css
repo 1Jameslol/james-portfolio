@@ -192,10 +192,10 @@ article.active { display: block; animation: fade .5s ease both; }
 .project-content { min-width: 0; }
 .project-title { margin: 4px 0 8px; color: var(--text); font-size: 20px; }
 .project-category { margin: 0; color: var(--green); font-size: 12px; }
-.project-description { margin: 0; color: var(--green-dim); font-size: 13px; line-height: 1.7; }
+.project-description { margin: 0; color: var(--green); font-size: 13px; line-height: 1.7; }
 .project-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
 .project-detail-section h4, .project-stack h4 { margin: 0 0 6px; color: var(--text); font-size: 12px; }
-.project-detail-section p, .project-stack p { margin: 0; color: var(--green-dim); font-size: 12px; line-height: 1.6; }
+.project-detail-section p, .project-stack p { margin: 0; color: var(--green); font-size: 12px; line-height: 1.6; }
 .project-stack { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
 
 .mapbox { height: 300px; margin-bottom: 28px; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; }
