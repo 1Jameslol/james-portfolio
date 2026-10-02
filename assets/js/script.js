@@ -158,6 +158,26 @@ const terminalFileSystem = {
             },
           },
         },
+        'sdyc-employee-security-systems': {
+          type: 'directory',
+          name: 'San Diego Yacht Club Employee Security Systems',
+          children: {
+            'README.md': {
+              type: 'file',
+              content: [
+                '# San Diego Yacht Club Employee Security Systems',
+                '',
+                'September 2026 — December 2026',
+                '',
+                'Conducting a cybersecurity risk assessment of staff technology practices, systems, workflows, training, and security controls.',
+                '',
+                'Evaluating confidentiality, integrity, availability, access controls, and least-privilege practices.',
+                '',
+                'Collaborating with a team to document observations and recommend improvements to the organization\'s security posture.',
+              ].join('\n'),
+            },
+          },
+        },
       },
     },
     'resume.pdf': {

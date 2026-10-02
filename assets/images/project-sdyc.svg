@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560">
+  <rect width="900" height="560" fill="#111018"/>
+  <rect x="42" y="42" width="816" height="476" rx="12" fill="#17151f" stroke="#493d5e" stroke-width="2"/>
+  <path d="M54 42h792a12 12 0 0 1 12 12v48H42V54a12 12 0 0 1 12-12Z" fill="#201c2b"/>
+  <circle cx="72" cy="76" r="7" fill="#c2a6ff"/>
+  <circle cx="98" cy="76" r="7" fill="#80699f"/>
+  <circle cx="124" cy="76" r="7" fill="#493d5e"/>
+  <text x="158" y="82" fill="#d4c5eb" font-family="sans-serif" font-size="18" letter-spacing="1">SECURITY ASSESSMENT</text>
+
+  <text x="82" y="148" fill="#f5f1fa" font-family="sans-serif" font-size="26" font-weight="600">Risk review overview</text>
+  <text x="82" y="177" fill="#a99bb9" font-family="sans-serif" font-size="16">People · Processes · Technology</text>
+
+  <rect x="82" y="208" width="218" height="150" rx="8" fill="#211d2b" stroke="#493d5e"/>
+  <circle cx="123" cy="252" r="20" fill="#332844"/>
+  <path d="M123 239 136 244v11c0 10-7 16-13 19-6-3-13-9-13-19v-11l13-5Z" fill="none" stroke="#c2a6ff" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="108" y="302" fill="#f5f1fa" font-family="sans-serif" font-size="18" font-weight="600">Access</text>
+  <text x="108" y="330" fill="#a99bb9" font-family="sans-serif" font-size="14">Controls &amp; least privilege</text>
+
+  <rect x="341" y="208" width="218" height="150" rx="8" fill="#211d2b" stroke="#493d5e"/>
+  <circle cx="382" cy="252" r="20" fill="#332844"/>
+  <path d="M372 252h20M382 242v20M375 245l14 14M389 245l-14 14" fill="none" stroke="#c2a6ff" stroke-width="2" stroke-linecap="round"/>
+  <text x="367" y="302" fill="#f5f1fa" font-family="sans-serif" font-size="18" font-weight="600">Safeguards</text>
+  <text x="367" y="330" fill="#a99bb9" font-family="sans-serif" font-size="14">Policies &amp; training</text>
+
+  <rect x="600" y="208" width="218" height="150" rx="8" fill="#211d2b" stroke="#493d5e"/>
+  <circle cx="641" cy="252" r="20" fill="#332844"/>
+  <path d="M631 260v-15h20v15M635 245v-5h12v5M637 252h8M637 256h8" fill="none" stroke="#c2a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="626" y="302" fill="#f5f1fa" font-family="sans-serif" font-size="18" font-weight="600">Resilience</text>
+  <text x="626" y="330" fill="#a99bb9" font-family="sans-serif" font-size="14">Confidentiality · Integrity · Availability</text>
+
+  <rect x="82" y="389" width="736" height="82" rx="8" fill="#211d2b" stroke="#493d5e"/>
+  <circle cx="116" cy="430" r="14" fill="#2c3c37"/>
+  <path d="m109 430 5 5 10-11" fill="none" stroke="#a9ddc6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="145" y="425" fill="#f5f1fa" font-family="sans-serif" font-size="16" font-weight="600">Document findings</text>
+  <text x="145" y="449" fill="#a99bb9" font-family="sans-serif" font-size="14">Turn observations into practical security recommendations</text>
+</svg>
