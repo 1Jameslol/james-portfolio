@@ -10,8 +10,8 @@
   <img src="https://img.shields.io/badge/LinkedIn-James%20Clarke-5B4278?style=for-the-badge&logo=linkedin&logoColor=white" />
 </a>
 
-<a href="https://YOUR-WEBSITE.com">
-  <img src="https://img.shields.io/badge/Portfolio-Website-5B4278?style=for-the-badge&logo=googlechrome&logoColor=white" />
+<a href="https://1jameslol.github.io/james-portfolio/">
+  <img src="https://img.shields.io/badge/Portfolio-Website-5B4278?style=for-the-badge&logo=githubpages&logoColor=white" />
 </a>
 
 </div>
