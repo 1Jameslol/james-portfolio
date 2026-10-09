@@ -204,6 +204,9 @@ article.active { display: block; animation: fade .5s ease both; }
 .project-detail .project-img img { object-fit: cover; object-position: center 50%; }
 .project-img.ncl-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.wrccdc-logo img { display: block; width: 93%; height: 93%; margin: 3.5% auto; object-fit: contain; }
+.project-img.sdyc-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
+.project-img.raices-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
+.project-img.raices-logo .raices-logo-white { position: absolute; inset: 9%; z-index: 1; width: 82%; height: 82%; margin: 0; filter: brightness(0) invert(1); clip-path: inset(0 42% 0 0); pointer-events: none; }
 .project-item > a:hover img { transform: scale(1.08); }
 .project-item-icon-box { position: absolute; top: 50%; left: 50%; z-index: 1; padding: 14px; color: var(--green); background: var(--panel); opacity: 0; transform: translate(-50%, -50%); transition: opacity var(--speed); }
 .project-item > a:hover .project-item-icon-box { opacity: 1; }
