@@ -204,6 +204,8 @@ article.active { display: block; animation: fade .5s ease both; }
 .project-detail .project-img img { object-fit: cover; object-position: center 50%; }
 .project-img.ncl-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.wrccdc-logo img { display: block; width: 93%; height: 93%; margin: 3.5% auto; object-fit: contain; }
+.project-img.sdsu-logo img { object-fit: contain; }
+.project-img.homelab-photo img { display: block; position: relative; left: -2%; top: -2%; width: 90%; height: 90%; margin: 5% 10% 5% 0; object-fit: cover; object-position: center; transform: none; }
 .project-img.sdyc-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.raices-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.raices-logo .raices-logo-white { position: absolute; inset: 9%; z-index: 1; width: 82%; height: 82%; margin: 0; filter: brightness(0) invert(1); clip-path: inset(0 42% 0 0); pointer-events: none; }
