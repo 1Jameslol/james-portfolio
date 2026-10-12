@@ -186,6 +186,20 @@ article.active { display: block; animation: fade .5s ease both; }
 .timeline-list span { color: var(--green); font-size: 12px; }
 .timeline-text { margin: 8px 0 0; }
 .skills-title { margin-top: 38px; }
+.skills-title::before {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  margin-right: 12px;
+  place-items: center;
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  color: var(--green);
+  background: var(--panel-light);
+  content: "$";
+  vertical-align: middle;
+  font-size: 20px;
+}
 .skills-list { padding: 20px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); }
 .skills-item:not(:last-child) { margin-bottom: 18px; }
 .skills-item-title { margin: 0 0 5px; color: var(--text); font-size: 13px; }
