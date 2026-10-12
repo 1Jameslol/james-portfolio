@@ -22,6 +22,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  user-select: none;
   color: var(--text);
   background-color: var(--bg);
   background-image:
@@ -29,6 +30,8 @@ body {
     linear-gradient(90deg, rgba(194, 166, 255, .035) 1px, transparent 1px);
   background-size: 32px 32px;
 }
+
+input, textarea { user-select: text; }
 
 .space-canvas {
   position: fixed;
