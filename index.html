@@ -27,6 +27,8 @@
 
 <body>
 
+  <canvas class="space-canvas" data-space-canvas aria-hidden="true"></canvas>
+
   <!--
     - #MAIN
   -->
@@ -207,6 +209,10 @@
           </a>
         </section>
 
+        <div class="about-portfolio-cta">
+          <button class="about-portfolio-button" type="button" data-nav-link>Portfolio</button>
+        </div>
+
         <!--
           - service
         -->
@@ -219,15 +225,15 @@
 
             <li class="service-item">
 
-              <div class="service-icon-box">
-                <ion-icon name="server-outline" aria-label="systems operations"></ion-icon>
+              <div class="service-icon-box service-project-icon service-kubernetes-icon">
+                <img src="./assets/images/service-kubernetes.png" alt="Kubernetes logo" loading="lazy">
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Systems Operations</h4>
+                <h4 class="h4 service-item-title">Container Orchestration</h4>
 
                 <p class="service-item-text">
-                  Administering UNIX systems with Docker, Proxmox, UTM, Kubernetes, and centralized logging.
+                  Building and operating practical Linux infrastructure with Proxmox, Docker, Kubernetes, and homelab services.
                 </p>
               </div>
 
@@ -235,15 +241,15 @@
 
             <li class="service-item">
 
-              <div class="service-icon-box">
-                <ion-icon name="shield-checkmark-outline" aria-label="security analysis"></ion-icon>
+              <div class="service-icon-box service-project-icon service-server-icon">
+                <img src="./assets/images/service-infrastructure-server.png" alt="Server rack illustration" loading="lazy">
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Security &amp; Log Analysis</h4>
+                <h4 class="h4 service-item-title">Infrastructure Administration</h4>
 
                 <p class="service-item-text">
-                  Analyzing logs and traffic with Kali Linux, Wireshark, tcpdump, Nmap, HackTheBox, and CLI tools.
+                  Administering DNS, LDAP, PKI, mail, file sharing, web services, containers, remote access, and fault-tolerant systems.
                 </p>
               </div>
 
@@ -251,15 +257,15 @@
 
             <li class="service-item">
 
-              <div class="service-icon-box">
-                <ion-icon name="git-network-outline" aria-label="network infrastructure"></ion-icon>
+              <div class="service-icon-box service-project-icon">
+                <img src="./assets/images/service-security-assessment.png" alt="Cartoon security assessment checklist" loading="lazy">
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Networking &amp; Infrastructure</h4>
+                <h4 class="h4 service-item-title">Security Assessments</h4>
 
                 <p class="service-item-text">
-                  Configuring DNS, LDAP, PKI, SMTP/IMAP, NFS, nginx, Samba, WireGuard, and iptables firewalls.
+                  Reviewing security practices, access controls, least privilege, workflows, and security controls to reduce risk.
                 </p>
               </div>
 
@@ -267,15 +273,16 @@
 
             <li class="service-item">
 
-              <div class="service-icon-box">
-                <ion-icon name="terminal-outline" aria-label="scripting and automation"></ion-icon>
+              <div class="service-icon-box service-project-icon service-cptc-icon">
+                <img class="cptc-mark" src="./assets/images/cptc-logo-transparent.png" alt="Collegiate Penetration Testing Competition logo" loading="lazy">
+                <img class="cptc-text" src="./assets/images/cptc-logo-transparent.png" alt="" aria-hidden="true" loading="lazy">
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Scripting &amp; Automation</h4>
+                <h4 class="h4 service-item-title">Penetration Testing &amp; Automation</h4>
 
                 <p class="service-item-text">
-                  Automating system administration, security hardening, and recovery workflows with Python, Bash, and Ansible.
+                  Practicing penetration testing, security analysis, scripting, Ansible automation, and repeatable operational workflows.
                 </p>
               </div>
 
@@ -321,31 +328,7 @@
               <span>Expected May 2029</span>
 
               <p class="timeline-text">
-                Bachelor of Science in Computer Science, minor in Mathematics. Relevant coursework: CS470 UNIX System Administration.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Computer Science</h4>
-
-              <span>Major</span>
-
-              <p class="timeline-text">
-                System Administration, Networking, Security, Scripting, and Infrastructure-focused coursework.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Mathematics</h4>
-
-              <span>Minor</span>
-
-              <p class="timeline-text">
-                Developing practical problem-solving and quantitative reasoning skills.
+                Bachelor of Science. Major: Computer Science. Minor: Mathematics. Relevant coursework: CS470 UNIX System Administration.
               </p>
 
             </li>
@@ -368,36 +351,48 @@
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">Deputy System Administrator</h4>
+              <h4 class="h4 timeline-item-title">Regional Collegiate Penetration Testing Competition</h4>
 
-              <span>April 2026 — Present</span>
+              <span>Penetration Testing Team Member · October 2026</span>
 
               <p class="timeline-text">
-                SDSU Cyber Defense Team. Maintain systems during simulated attacks, monitor suspicious activity, and practice defensive operations.
+                Conducted authorized penetration testing against systems and services in a controlled collegiate competition. Performed network reconnaissance and service enumeration, then documented vulnerabilities, evidence, and risk-based remediation recommendations in a team report.
               </p>
 
             </li>
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">Security Assessments</h4>
+              <h4 class="h4 timeline-item-title">SDSU Cyber Defense Team</h4>
 
-              <span>December 2025 — Present</span>
+              <span>Deputy System Administrator · April 2026 — Present</span>
 
               <p class="timeline-text">
-                San Diego Cyber Clinic of Excellence. Conduct mock client assessments to identify misconfigurations and vulnerabilities.
+                Manage a multi-OS virtualized infrastructure supporting club activities, WireGuard VPN, Windows Server, DNS/PKI, Ubuntu, AlmaLinux, FreeBSD, and containerized systems. Deploy and monitor Proxmox, Terraform, Ansible, Packer, Forgejo, CI/CD runners, Docker, and LXC services. Participated in WRCCDC as a Blue Team IT Team Member.
               </p>
 
             </li>
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">Linux Homelab Infrastructure</h4>
+              <h4 class="h4 timeline-item-title">San Diego Yacht Club</h4>
 
-              <span>Personal project</span>
+              <span>Security Consultant · September 2026 — Present</span>
 
               <p class="timeline-text">
-                Built and secured Ubuntu services with Samba, iptables, WireGuard, and CLI-based troubleshooting on Apple T2 hardware.
+                Conduct a cybersecurity risk assessment of staff technology practices, systems, workflows, training, and security controls. Review access controls, least-privilege practices, and security frameworks, then collaborate on recommendations to improve the organization’s security posture.
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">SDSU Infrastructure Lab</h4>
+
+              <span>System Administrator · January 2026 — May 2026</span>
+
+              <p class="timeline-text">
+                Built a multi-OS lab with DNS, LDAP, PKI, SMTP/IMAP, NFS, nginx/Docker, and centralized logging. Configured UNIX/Linux servers for authentication, mail, file sharing, web hosting, containers, and remote access, then deployed a multi-node Kubernetes cluster with fault-tolerant web services and automated failover.
               </p>
 
             </li>
@@ -414,7 +409,7 @@
 
             <li class="skills-item">
               <h5 class="h5 skills-item-title">Networking &amp; Infrastructure</h5>
-              <p class="skills-item-details">DNS, LDAP, SMTP, IMAP, NFS, SSH, VPNs, PKI, GitLab, nginx</p>
+              <p class="skills-item-details">DNS, LDAP, SMTP, IMAP, NFS, SSH, VPNs, PKI, Git, GitHub, nginx</p>
             </li>
 
             <li class="skills-item">
@@ -448,18 +443,13 @@
               <ion-icon name="ribbon-outline"></ion-icon>
             </div>
 
-            <h3 class="h3">Certifications &amp; Activities</h3>
+            <h3 class="h3">Certifications</h3>
           </div>
 
           <ol class="timeline-list">
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Google Cybersecurity Professional Certificate</h4>
-              <span>Completed</span>
-            </li>
-
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Certified Axio360 Quantification Practitioner</h4>
-              <span>Axio · Issued September 2026 · Expires September 2028 · Credential ID 21101</span>
+              <span>Certificate</span>
             </li>
 
             <li class="timeline-item">
@@ -469,11 +459,16 @@
 
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">National Cyber League</h4>
-              <span>Fall 2025 Team &amp; Individual Games</span>
+              <span>Fall 2025 Team Game &amp; Individual Game</span>
             </li>
           </ol>
 
         </section>
+
+        <a class="resume-download resume-page-download" href="./Resume.pdf" download="Resume.pdf">
+          <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+          <span>Download Resume (PDF)</span>
+        </a>
 
       </article>
 
@@ -488,17 +483,17 @@
       <article class="portfolio" data-page="portfolio">
 
         <header>
-          <h2 class="h2 article-title">Projects and Competitions</h2>
+          <h2 class="h2 article-title">Competitions and Projects</h2>
         </header>
 
         <section class="projects">
 
           <ul class="project-list">
 
-            <li class="project-item active" data-filter-item data-category="infrastructure">
+            <li class="project-item active" data-filter-item data-category="infrastructure" data-order="5">
               <div class="project-detail">
                 <figure class="project-img sdsu-logo">
-                  <img src="./assets/images/509ED436-9EBF-405E-808F-A1A929372835.JPG" alt="Ansible playbook configuring syslog clients across Ubuntu, FreeBSD, and Solaris" loading="lazy">
+                  <img src="./assets/images/project-sdsu-infrastructure.png" alt="SDSU infrastructure stack showing SSL/TLS, UNIX, Sendmail, SSH, Ansible, and Nginx logos" loading="lazy">
                 </figure>
 
                 <div class="project-content">
@@ -527,7 +522,7 @@
               </div>
             </li>
 
-            <li class="project-item active" data-filter-item data-category="security">
+            <li class="project-item active" data-filter-item data-category="security" data-order="6">
               <div class="project-detail">
                 <figure class="project-img sdyc-logo">
                   <img src="./assets/images/image.png" alt="San Diego Yacht Club logo" loading="lazy">
@@ -559,7 +554,7 @@
               </div>
             </li>
 
-            <li class="project-item active" data-filter-item data-category="security">
+            <li class="project-item active" data-filter-item data-category="security" data-order="7">
               <div class="project-detail">
                 <figure class="project-img raices-logo">
                   <img src="./assets/images/2-1287494555.png" alt="Raíces Cyber logo" loading="lazy">
@@ -592,39 +587,39 @@
               </div>
             </li>
 
-            <li class="project-item active" data-filter-item data-category="infrastructure">
+            <li class="project-item active" data-filter-item data-category="infrastructure" data-order="4">
               <div class="project-detail">
                 <figure class="project-img homelab-photo">
-                  <img src="./assets/images/project-homelab.jpg" alt="Laptop terminal showing iptables firewall rules and network connectivity checks" loading="lazy">
+                  <img src="./assets/images/project-homelab-logos-transparent.png" alt="Transparent homelab graphic showing Ubuntu, Proxmox, Kubernetes, Docker, Kali Linux, and Puppy Linux logos" loading="lazy">
                 </figure>
 
                 <div class="project-content">
                   <p class="project-category">Personal Infrastructure Project · June 2026 — August 2026</p>
-                  <h3 class="project-title">Linux Homelab Infrastructure</h3>
+                  <h3 class="project-title">Homelab Infrastructure</h3>
                   <p class="project-description">
-                    Built a multi-OS homelab on Apple T2 hardware, with a Puppy Linux WireGuard VPN and an Ubuntu Samba file server.
+                    Built a Debian-based homelab on Apple T2 hardware with Proxmox running as the hypervisor. An Ubuntu virtual machine runs the Samba file server, a 20 year old Acer Aspire running Puppy Linux runs the WireGuard VPN, and additional Proxmox VMs provide isolated environments for testing and technical writeups.
                   </p>
 
                   <div class="project-detail-grid">
                     <section class="project-detail-section">
-                      <h4>Services &amp; Access</h4>
-                      <p>Ran WireGuard VPN on Puppy Linux and hosted Samba file sharing on Ubuntu.</p>
+                      <h4>Virtualization &amp; Services</h4>
+                      <p>Ran Proxmox on Debian under Apple T2 hardware, hosted an Ubuntu Samba file server VM, and ran a Puppy Linux WireGuard VPN VM.</p>
                     </section>
                     <section class="project-detail-section">
-                      <h4>Security &amp; Operations</h4>
-                      <p>Used iptables firewall rules and CLI-based troubleshooting across the homelab.</p>
+                      <h4>Testing &amp; Documentation</h4>
+                      <p>Maintained additional Proxmox VMs for isolated testing, experimentation, and technical writeups.</p>
                     </section>
                   </div>
 
                   <div class="project-stack">
                     <h4>Technology</h4>
-                    <p>Puppy Linux · Ubuntu · Apple T2 hardware · WireGuard · Samba · iptables · CLI</p>
+                    <p>Debian · Proxmox · Apple T2 hardware · Ubuntu · Samba · Puppy Linux · WireGuard · Virtual machines · Testing · Technical writeups</p>
                   </div>
                 </div>
               </div>
             </li>
 
-            <li class="project-item active" data-filter-item data-category="security">
+            <li class="project-item active" data-filter-item data-category="security" data-order="3">
               <div class="project-detail">
                 <figure class="project-img ncl-logo">
                   <img src="./assets/images/National-Cyber-League-Logo-3607789845-1.png" alt="National Cyber League logo" loading="lazy">
@@ -656,7 +651,7 @@
               </div>
             </li>
 
-            <li class="project-item active" data-filter-item data-category="security">
+            <li class="project-item active" data-filter-item data-category="security" data-order="1">
               <div class="project-detail">
                 <figure class="project-img cptc-logo">
                   <img class="cptc-mark" src="./assets/images/cptc-logo-transparent.png" alt="Collegiate Penetration Testing Competition logo" loading="lazy">
@@ -689,7 +684,7 @@
               </div>
             </li>
 
-            <li class="project-item active" data-filter-item data-category="security">
+            <li class="project-item active" data-filter-item data-category="security" data-order="2">
               <div class="project-detail">
                 <figure class="project-img wrccdc-logo">
                   <img src="./assets/images/wrccdc-logo-transparent.png" alt="Western Regional Collegiate Cyber Defense Competition logo" loading="lazy">
@@ -697,7 +692,7 @@
 
                 <div class="project-content">
                   <p class="project-category">Cybersecurity Competition · Fall 2025 &amp; Fall 2026</p>
-                  <h3 class="project-title">Western Regional Collegiate Cyber Defense Competition Invitational (WRCCDC)</h3>
+                  <h3 class="project-title">Western Regional Collegiate Cyber Defense Competition Invitational (CCDC)</h3>
                   <p class="project-description">
                     Participated in two WRCCDC Invitationals, gaining experience in a team-based defensive cybersecurity environment.
                   </p>

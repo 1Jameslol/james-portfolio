@@ -18,6 +18,7 @@
 html { font-family: var(--mono); background: var(--bg); }
 
 body {
+  position: relative;
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
@@ -27,6 +28,15 @@ body {
     linear-gradient(rgba(194, 166, 255, .035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(194, 166, 255, .035) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+
+.space-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 body::before {
@@ -47,6 +57,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 :focus { outline: 1px solid var(--green); outline-offset: 3px; }
 
 main {
+  position: relative;
+  z-index: 1;
   width: min(1100px, 100%);
   margin: 15px auto 75px;
 }
@@ -57,7 +69,7 @@ article {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(11, 11, 11, .95);
+  background: rgba(11, 11, 11, .88);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, .04), 0 24px 70px rgba(0, 0, 0, .55);
   animation: none;
 }
@@ -146,10 +158,15 @@ article.active { display: block; animation: fade .5s ease both; }
 .article-title::after { display: block; width: 32px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--green); content: ""; }
 .about-text, .service-item-text, .timeline-text { color: var(--green-dim); font-size: 14px; line-height: 1.7; }
 .about-text { margin-bottom: 34px; }
+.about-portfolio-cta { position: absolute; top: 220px; right: 220px; display: flex; flex-direction: row; align-items: center; gap: 22px; }
+.about-portfolio-button { padding: 16px 28px; border: 1px solid var(--green); border-radius: 4px; color: #08070a; background: var(--green); box-shadow: 0 0 24px 6px rgba(194, 166, 255, .42); font-size: 16px; letter-spacing: .5px; transition: color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
+.about-portfolio-button:hover { color: #08070a; background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
+.about-portfolio-button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 .resume-download { display: inline-flex; flex-direction: row; align-items: center; gap: 7px; width: fit-content; max-width: 100%; padding: 7px 10px; border: 1px solid var(--line); border-radius: 3px; color: var(--green); background: transparent; font-size: 12px; line-height: 1.2; white-space: nowrap; transition: border-color var(--speed), background var(--speed); }
 .resume-download ion-icon { flex: 0 0 auto; font-size: 15px; }
 .resume-download:hover { border-color: var(--green-dim); background: var(--panel-light); }
 .resume-download:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.resume-page-download { position: absolute; right: calc(10% + 60px); bottom: 74px; justify-content: center; min-width: 230px; padding: 12px 18px; font-size: 14px; }
 .terminal { margin: 0 0 34px; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: #08070a; box-shadow: 0 10px 30px rgba(0, 0, 0, .3); animation: fade .5s ease both; transition: border-color var(--speed), box-shadow var(--speed), transform var(--speed); }
 .terminal:hover, .terminal:focus-within { border-color: var(--green-dim); box-shadow: 0 0 0 1px rgba(194, 166, 255, .12), 0 12px 34px rgba(0, 0, 0, .4); }
 .terminal:hover { transform: translateY(-2px); }
@@ -169,11 +186,22 @@ article.active { display: block; animation: fade .5s ease both; }
 .terminal-input::placeholder { color: #74618f; }
 .service-title, .skills-title, .form-title { margin: 0 0 18px; color: var(--text); font-size: 20px; }
 .service-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.service-item { display: flex; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); transition: border-color var(--speed), transform var(--speed); }
+.service-item { display: flex; align-items: flex-start; gap: 16px; min-height: 154px; padding: 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); transition: border-color var(--speed), transform var(--speed), box-shadow var(--speed); }
 .service-item:hover { border-color: var(--green-dim); transform: translateY(-2px); }
-.service-icon-box { flex: 0 0 38px; }
+.service-item:hover { box-shadow: 0 10px 24px rgba(0, 0, 0, .28); }
+.service-icon-box { flex: 0 0 86px; width: 86px; }
 .service-icon-box ion-icon { width: 38px; height: 38px; color: var(--text); font-size: 38px; line-height: 1; }
+.service-project-icon { position: relative; display: grid; flex: 0 0 86px; place-items: center; width: 86px; height: 86px; overflow: hidden; border: 0; border-radius: 0; background: transparent; }
+.service-project-icon img { width: 100%; height: 100%; object-fit: contain; filter: none; }
+.service-cptc-icon { flex-basis: 160px; width: 160px; height: 115px; margin-top: 14px; }
+.service-kubernetes-icon img { position: static; width: 100%; max-width: 100%; height: 100%; object-fit: contain; }
+.service-freebsd-icon img { position: absolute; max-width: none; height: auto; }
+.service-freebsd-icon img { top: 0; left: -214%; width: 320%; }
+.service-project-icon img[src*="cptc"] { width: 100%; max-width: 100%; height: auto; background: transparent; filter: brightness(1.8) saturate(1.15); transform: none; }
 .service-content-box { min-width: 0; }
+.service-cptc-icon img { position: absolute; inset: 0; width: 100%; max-width: none; height: 100%; object-fit: contain; }
+.service-cptc-icon .cptc-mark { clip-path: inset(0 50% 0 0); }
+.service-cptc-icon img.cptc-text { clip-path: inset(0 0 0 50%); filter: grayscale(1) brightness(0) invert(1); }
 .service-item-title { margin: 0 0 8px; color: var(--text); font-size: 14px; }
 
 .timeline { margin-bottom: 32px; }
@@ -209,9 +237,17 @@ article.active { display: block; animation: fade .5s ease both; }
 .filter-item button { color: var(--green-dim); font-size: 13px; }
 .filter-item button.active, .filter-item button:hover { color: var(--green); }
 .filter-select-box { display: none; }
-.project-list { display: block; }
+.project-list { display: flex; flex-direction: column; }
 .project-item { display: none; }
 .project-item.active { display: block; animation: scale-up .25s ease both; }
+.project-item[data-order] { order: var(--project-order); }
+.project-item[data-order="1"] { --project-order: 1; }
+.project-item[data-order="2"] { --project-order: 2; }
+.project-item[data-order="3"] { --project-order: 3; }
+.project-item[data-order="4"] { --project-order: 4; }
+.project-item[data-order="5"] { --project-order: 5; }
+.project-item[data-order="6"] { --project-order: 6; }
+.project-item[data-order="7"] { --project-order: 7; }
 .project-detail { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 24px; padding: 20px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); }
 .project-img { position: relative; min-height: 0; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; }
 .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--speed); }
@@ -240,8 +276,8 @@ article.active { display: block; animation: fade .5s ease both; }
 .project-img.ncl-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.wrccdc-logo img { display: block; width: 93%; height: 93%; margin: 3.5% auto; object-fit: contain; }
 .project-img.sdsu-logo img { object-fit: contain; }
-.project-img.homelab-photo img { display: block; position: relative; left: -2%; top: -2%; width: 90%; height: 90%; margin: 5% 10% 5% 0; object-fit: cover; object-position: center; transform: none; }
-.project-img.sdyc-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
+.project-img.homelab-photo img { display: block; position: relative; z-index: 1; width: 100%; height: 100%; margin: 0; object-fit: contain; object-position: center; transform: translateX(2%); }
+.project-img.sdyc-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; filter: brightness(1.45) saturate(1.1); }
 .project-img.raices-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.raices-logo .raices-logo-white { position: absolute; inset: 9%; z-index: 1; width: 82%; height: 82%; margin: 0; filter: brightness(0) invert(1); clip-path: inset(0 42% 0 0); pointer-events: none; }
 .project-item > a:hover img { transform: scale(1.08); }
@@ -292,6 +328,8 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
   main { margin-top: 10px; }
   article { padding: 20px; }
   article::before { margin: -20px -20px 20px; }
+  .about-portfolio-cta { position: static; align-items: flex-end; margin: -8px 0 28px; }
+  .resume-page-download { position: static; margin: 22px 0 0 auto; }
   .service-list, .project-list { grid-template-columns: 1fr; }
   .project-detail { grid-template-columns: minmax(0, 1fr); }
   .project-img.cptc-logo { height: auto; aspect-ratio: 4 / 3; }
@@ -324,7 +362,8 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
   .contacts-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
   .project-list {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   .project-item.active {
@@ -332,23 +371,37 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
   }
 
   .resume.active {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 28px;
+    display: block;
+  }
+
+  .resume.active::before {
+    width: auto;
   }
 
   .resume.active > header {
-    grid-column: 1 / -1;
+    width: 100%;
   }
 
   .resume.active > .timeline,
   .resume.active > .skill {
-    margin-bottom: 0;
+    float: left;
+    width: calc(50% - 14px);
+    margin-bottom: 20px;
   }
 
-  .resume.active > .skill,
+  .resume.active > .timeline:nth-of-type(2) {
+    float: right;
+  }
+
   .resume.active > .timeline:nth-of-type(4) {
-    grid-column: span 1;
+    float: left;
+    clear: left;
+  }
+
+  .resume.active::after {
+    display: block;
+    clear: both;
+    content: "";
   }
 
   .resume .article-title {

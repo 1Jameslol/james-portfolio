@@ -1,5 +1,127 @@
 'use strict';
 
+const spaceCanvas = document.querySelector('[data-space-canvas]');
+
+if (spaceCanvas) {
+  const spaceContext = spaceCanvas.getContext('2d');
+  const purple = { red: 194, green: 166, blue: 255 };
+  const stars = [];
+  const bursts = [];
+  let spaceWidth = 0;
+  let spaceHeight = 0;
+  let pixelRatio = 1;
+
+  const resizeSpace = () => {
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    spaceWidth = window.innerWidth;
+    spaceHeight = window.innerHeight;
+    spaceCanvas.width = Math.floor(spaceWidth * pixelRatio);
+    spaceCanvas.height = Math.floor(spaceHeight * pixelRatio);
+    spaceContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+    const starCount = Math.min(150, Math.max(70, Math.floor((spaceWidth * spaceHeight) / 11000)));
+    stars.length = 0;
+    for (let index = 0; index < starCount; index += 1) {
+      stars.push({
+        x: Math.random() * spaceWidth,
+        y: Math.random() * spaceHeight,
+        radius: Math.random() * 1.6 + .35,
+        alpha: Math.random() * .55 + .25,
+        drift: (Math.random() - .5) * .08,
+        twinkle: Math.random() * Math.PI * 2,
+      });
+    }
+  };
+
+  const addSpaceBurst = (x, y) => {
+    bursts.push({ x, y, radius: 0, alpha: .9 });
+    for (let index = 0; index < 12; index += 1) {
+      const angle = (Math.PI * 2 * index) / 12;
+      bursts.push({
+        x,
+        y,
+        radius: 1,
+        alpha: .95,
+        speed: Math.random() * 1.8 + 1.4,
+        angle,
+        particle: true,
+      });
+    }
+  };
+
+  const drawSpace = (time) => {
+    spaceContext.clearRect(0, 0, spaceWidth, spaceHeight);
+
+    const glow = spaceContext.createRadialGradient(
+      spaceWidth * .52, spaceHeight * .35, 0,
+      spaceWidth * .52, spaceHeight * .35, Math.max(spaceWidth, spaceHeight) * .72,
+    );
+    glow.addColorStop(0, 'rgba(92, 48, 150, .16)');
+    glow.addColorStop(.5, 'rgba(28, 12, 54, .08)');
+    glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    spaceContext.fillStyle = glow;
+    spaceContext.fillRect(0, 0, spaceWidth, spaceHeight);
+
+    stars.forEach((star, index) => {
+      star.x += star.drift;
+      if (star.x < -4) star.x = spaceWidth + 4;
+      if (star.x > spaceWidth + 4) star.x = -4;
+
+      const pulse = star.alpha + Math.sin(time * .0012 + star.twinkle) * .14;
+      spaceContext.beginPath();
+      spaceContext.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      spaceContext.fillStyle = `rgba(${purple.red}, ${purple.green}, ${purple.blue}, ${Math.max(.08, pulse)})`;
+      spaceContext.fill();
+
+      for (let next = index + 1; next < stars.length; next += 1) {
+        const other = stars[next];
+        const distance = Math.hypot(star.x - other.x, star.y - other.y);
+        if (distance < 115) {
+          spaceContext.strokeStyle = `rgba(${purple.red}, ${purple.green}, ${purple.blue}, ${(.12 * (1 - distance / 115)).toFixed(3)})`;
+          spaceContext.lineWidth = .5;
+          spaceContext.beginPath();
+          spaceContext.moveTo(star.x, star.y);
+          spaceContext.lineTo(other.x, other.y);
+          spaceContext.stroke();
+        }
+      }
+    });
+
+    for (let index = bursts.length - 1; index >= 0; index -= 1) {
+      const burst = bursts[index];
+      burst.alpha -= burst.particle ? .018 : .025;
+      if (burst.particle) {
+        burst.x += Math.cos(burst.angle) * burst.speed;
+        burst.y += Math.sin(burst.angle) * burst.speed;
+        burst.radius += .06;
+      } else {
+        burst.radius += 3.5;
+      }
+
+      if (burst.alpha <= 0) {
+        bursts.splice(index, 1);
+        continue;
+      }
+
+      spaceContext.beginPath();
+      spaceContext.arc(burst.x, burst.y, burst.radius, 0, Math.PI * 2);
+      spaceContext.strokeStyle = `rgba(${purple.red}, ${purple.green}, ${purple.blue}, ${burst.alpha})`;
+      spaceContext.lineWidth = burst.particle ? 1.5 : 1;
+      spaceContext.stroke();
+    }
+
+    window.requestAnimationFrame(drawSpace);
+  };
+
+  resizeSpace();
+  window.addEventListener('resize', resizeSpace, { passive: true });
+  window.addEventListener('click', (event) => {
+    if (event.target.closest('a, button, input, textarea, select, label, form')) return;
+    addSpaceBurst(event.clientX, event.clientY);
+  });
+  window.requestAnimationFrame(drawSpace);
+}
+
 const toggle = (element) => element?.classList.toggle('active');
 
 const sidebar = document.querySelector('[data-sidebar]');
