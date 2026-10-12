@@ -820,6 +820,9 @@ ul.skills-list.content-card {
   .about-resume-download { padding: 12px 18px; }
   .contacts-list { grid-template-columns: 1fr; gap: 14px; }
   .contact-info :is(.contact-link, address) { white-space: normal; overflow-wrap: anywhere; }
+
+  /* Keep the certifications heading clear of the final scripting row on phones. */
+  .resume .skill + .timeline { margin-top: 32px; }
 }
 
 @media (max-width: 449px) {
