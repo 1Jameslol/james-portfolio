@@ -352,7 +352,7 @@ const terminalCommands = {
 
 const updateTerminalPrompt = () => {
   const path = currentDirectory.map((_, index) => terminalPathName(currentDirectory.slice(0, index + 1))).join('/');
-  if (terminalPrompt) terminalPrompt.textContent = `james@portfolio:~${path ? `/${path}` : ''}$`;
+  if (terminalPrompt) terminalPrompt.textContent = `portfolio: ${path ? `~/${path}` : '~'} james$`;
 };
 
 const terminalNavigate = (page) => {

@@ -729,6 +729,12 @@ article::before:first-letter { color: var(--red); }
 .terminal-prompt { color: #b9d5ff; }
 .terminal-input::placeholder { color: rgba(221, 232, 249, .38); }
 
+/* macOS-style shell prompt */
+.terminal-form { gap: 10px; }
+.terminal-prompt { color: #b9d5ff; font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+.terminal-input { font-family: var(--mono); font-size: 12px; line-height: normal; caret-color: var(--green); }
+.terminal-input::placeholder { color: rgba(221, 232, 249, .38); }
+
 .article-title { margin-bottom: 30px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, .15); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; font-size: 34px; letter-spacing: -.03em; }
 .article-title::after { width: 42px; height: 4px; margin-top: 14px; border-radius: 99px; background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0)); }
 .about-text, .service-item-text, .timeline-text { color: rgba(226, 235, 250, .72); }
