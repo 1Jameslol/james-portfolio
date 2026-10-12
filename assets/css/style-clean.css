@@ -127,7 +127,6 @@ article.active { display: block; animation: fade .5s ease both; }
 .info-content .name::before,
 .article-title::before,
 .service-title::before,
-.skills-title::before,
 .form-title::before { color: var(--green); content: "$ "; }
 .info-content .title { width: max-content; max-width: 100%; margin: 0; padding: 4px 10px; overflow: hidden; border: 1px solid var(--line); border-radius: 3px; color: var(--green); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .info_more-btn { display: none; }
@@ -163,10 +162,15 @@ article.active { display: block; animation: fade .5s ease both; }
 .article-title::after { display: block; width: 32px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--green); content: ""; }
 .about-text, .service-item-text, .timeline-text { color: var(--green-dim); font-size: 14px; line-height: 1.7; }
 .about-text { margin-bottom: 34px; }
-.about-portfolio-cta { position: absolute; top: 220px; right: 220px; display: flex; flex-direction: row; align-items: center; gap: 22px; }
-.about-portfolio-button { padding: 16px 28px; border: 1px solid var(--green); border-radius: 4px; color: #08070a; background: var(--green); box-shadow: 0 0 24px 6px rgba(194, 166, 255, .42); font-size: 16px; letter-spacing: .5px; transition: color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
+.about-text { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.about .article-title { margin-bottom: 18px; }
+.about-text > p { flex-basis: 100%; margin-top: 0; }
+.about-portfolio-cta { display: flex; align-items: center; }
+.about-portfolio-button { padding: 12px 20px; border: 1px solid var(--green); border-radius: 4px; color: var(--green); background: transparent; box-shadow: none; font-size: 13px; letter-spacing: .5px; transition: color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
 .about-portfolio-button:hover { color: #08070a; background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
 .about-portfolio-button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.about-portfolio-button { display: inline-flex; align-items: center; gap: 8px; }
+.about-portfolio-button ion-icon { flex-shrink: 0; font-size: 16px; }
 .resume-download { display: inline-flex; flex-direction: row; align-items: center; gap: 7px; width: fit-content; max-width: 100%; padding: 10px 16px; border: 1px solid var(--green); border-radius: 3px; color: #08070a; background: var(--green); box-shadow: 0 0 24px 6px rgba(194, 166, 255, .42); font-size: 12px; line-height: 1.2; white-space: nowrap; transition: border-color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
 .resume-download ion-icon { flex: 0 0 auto; font-size: 15px; }
 .resume-download:hover { border-color: var(--green); background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
@@ -221,20 +225,8 @@ article.active { display: block; animation: fade .5s ease both; }
 .timeline-list span { color: var(--green); font-size: 12px; }
 .timeline-text { margin: 8px 0 0; }
 .skills-title { margin-top: 38px; }
-.skills-title::before {
-  display: inline-grid;
-  width: 38px;
-  height: 38px;
-  margin-right: 12px;
-  place-items: center;
-  border: 2px solid var(--line);
-  border-radius: 4px;
-  color: var(--green);
-  background: var(--panel-light);
-  content: "$";
-  vertical-align: middle;
-  font-size: 20px;
-}
+.skills-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.skills-heading .skills-title { margin: 0; }
 .skills-list { padding: 20px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); }
 .skills-item:not(:last-child) { margin-bottom: 18px; }
 .skills-item-title { margin: 0 0 5px; color: var(--text); font-size: 13px; }
@@ -353,7 +345,7 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
   main { margin-top: 10px; }
   article { padding: 20px; }
   article::before { margin: -20px -20px 20px; }
-  .about-portfolio-cta { position: static; align-items: flex-end; margin: -8px 0 28px; }
+  .about-portfolio-cta { align-items: flex-start; }
   .resume-page-download { position: static; margin: 22px 0 0 auto; }
   .service-list, .project-list { grid-template-columns: 1fr; }
   .project-detail { grid-template-columns: minmax(0, 1fr); }
@@ -557,6 +549,30 @@ ul.skills-list.content-card {
   box-shadow: none;
 }
 
+/* Match the Skills timeline geometry to the other resume categories. */
+.skill .skills-list {
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 2px solid var(--line) !important;
+}
+.resume .skill .skills-list {
+  border-left: 2px solid var(--line) !important;
+}
+.skill .skills-item {
+  position: relative;
+}
+.skill .skills-item::before {
+  position: absolute;
+  top: 4px;
+  left: -24px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px var(--line);
+  content: "";
+}
+
 /* Match image borders to the surrounding project cards. */
 .project-img {
   border-width: 1px;
@@ -683,7 +699,6 @@ article::before:first-letter { color: var(--red); }
 .info-content .name::before,
 .article-title::before,
 .service-title::before,
-.skills-title::before,
 .form-title::before { content: none; }
 .info-content .title { border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px; color: rgba(240, 247, 255, .78); background: rgba(255, 255, 255, .1); font-family: var(--mono); }
 
@@ -738,8 +753,6 @@ article::before:first-letter { color: var(--red); }
 .project-description,
 .project-detail-section p,
 .project-stack p { color: #b7d2f7; }
-.skills-title::before { border-color: rgba(255, 255, 255, .18); border-radius: 13px; background: rgba(255, 255, 255, .1); }
-
 .project-detail { gap: 26px; padding: 20px; border-radius: 22px; }
 .project-img { border-radius: 17px; background: rgba(255, 255, 255, .08); }
 .project-item-icon-box { border-radius: 13px; background: rgba(10, 17, 30, .65); }

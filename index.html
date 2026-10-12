@@ -208,11 +208,14 @@
             <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
             <span>Download Resume (PDF)</span>
           </a>
-        </section>
 
-        <div class="about-portfolio-cta">
-          <button class="about-portfolio-button" type="button" data-nav-link>Portfolio</button>
-        </div>
+          <div class="about-portfolio-cta">
+            <button class="about-portfolio-button" type="button" data-nav-link>
+              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+              <span>Portfolio</span>
+            </button>
+          </div>
+        </section>
 
         <!--
           - service
@@ -247,7 +250,7 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Infrastructure Administration</h4>
+                <h4 class="h4 service-item-title">System Administration</h4>
 
                 <p class="service-item-text">
                   Administering DNS, LDAP, PKI, mail, file sharing, web services, containers, remote access, and fault-tolerant systems.
@@ -402,33 +405,39 @@
 
         </section>
 
-        <section class="skill">
+        <section class="timeline skill">
 
-          <h3 class="h3 skills-title">My skills</h3>
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="code-slash-outline"></ion-icon>
+            </div>
 
-          <ul class="skills-list content-card">
+            <h3 class="h3 skills-title">Skills</h3>
+          </div>
 
-            <li class="skills-item">
+          <ul class="timeline-list">
+
+            <li class="timeline-item">
               <h5 class="h5 skills-item-title">Networking &amp; Infrastructure</h5>
               <p class="skills-item-details">DNS, LDAP, SMTP, IMAP, NFS, SSH, VPNs, PKI, Git, GitHub, nginx</p>
             </li>
 
-            <li class="skills-item">
+            <li class="timeline-item">
               <h5 class="h5 skills-item-title">Security &amp; Log Analysis</h5>
               <p class="skills-item-details">Wireshark, tcpdump, Nmap</p>
             </li>
 
-            <li class="skills-item">
+            <li class="timeline-item">
               <h5 class="h5 skills-item-title">Systems &amp; Cloud</h5>
               <p class="skills-item-details">Azure, Docker, Proxmox, Linux, UNIX administration, UTM, Kubernetes</p>
             </li>
 
-            <li class="skills-item">
+            <li class="timeline-item">
               <h5 class="h5 skills-item-title">Operating Systems</h5>
               <p class="skills-item-details">OpenBSD, FreeBSD, AlmaLinux, Ubuntu, Solaris, AIX, Windows, macOS</p>
             </li>
 
-            <li class="skills-item">
+            <li class="timeline-item">
               <h5 class="h5 skills-item-title">Scripting</h5>
               <p class="skills-item-details">Python, C++, Java, Bash</p>
             </li>
