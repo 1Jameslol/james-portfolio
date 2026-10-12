@@ -354,6 +354,7 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
   .sidebar-info { align-items: flex-start; }
   .sidebar-info_more { display: none; }
   .sidebar.active .sidebar-info_more { display: block; }
+  .sidebar-info_more .social-list { justify-content: center; margin-top: 16px; }
   .info_more-btn { display: block; margin-left: auto; color: var(--green); font-size: 11px; }
   .navbar { position: fixed; right: 0; bottom: 0; left: 0; z-index: 5; width: 100%; margin: 0; border-radius: 6px 6px 0 0; }
   .navbar-list { justify-content: space-around; gap: 0; }
