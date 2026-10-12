@@ -15,13 +15,14 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style-clean.css">
+  <link rel="stylesheet" href="./assets/css/style-clean.css?v=20261012-glass-fix">
 
   <!--
     - google font link
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.google.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -368,7 +369,7 @@
               <span>Deputy System Administrator · April 2026 — Present</span>
 
               <p class="timeline-text">
-                Manage a multi-OS virtualized infrastructure supporting club activities, WireGuard VPN, Windows Server, DNS/PKI, Ubuntu, AlmaLinux, FreeBSD, and containerized systems. Deploy and monitor Proxmox, Terraform, Ansible, Packer, Forgejo, CI/CD runners, Docker, and LXC services. Participated in WRCCDC as a Blue Team IT Team Member.
+                Manage a multi-OS virtualized infrastructure supporting club activities, WireGuard VPN, Windows Server, DNS/PKI, Ubuntu, AlmaLinux, FreeBSD, and containerized systems. Deploy and monitor Proxmox, Terraform, Ansible, Packer, Forgejo, CI/CD runners, Docker, and LXC services. Participated two times in the WRCCDC Invitational as a Blue Team IT Team Member.
               </p>
 
             </li>
@@ -380,7 +381,7 @@
               <span>Security Consultant · September 2026 — Present</span>
 
               <p class="timeline-text">
-                Conduct a cybersecurity risk assessment of staff technology practices, systems, workflows, training, and security controls. Review access controls, least-privilege practices, and security frameworks, then collaborate on recommendations to improve the organization’s security posture.
+                Conduct a security risk assessment of staff technology practices, systems, workflows, training, and security controls. Review access controls, least-privilege practices, and security frameworks, then collaborate on recommendations to improve the organization’s security posture.
               </p>
 
             </li>
@@ -590,7 +591,7 @@
             <li class="project-item active" data-filter-item data-category="infrastructure" data-order="4">
               <div class="project-detail">
                 <figure class="project-img homelab-photo">
-                  <img src="./assets/images/project-homelab-logos-transparent.png" alt="Transparent homelab graphic showing Ubuntu, Proxmox, Kubernetes, Docker, Kali Linux, and Puppy Linux logos" loading="lazy">
+                  <img src="./assets/images/project-homelab-logos-clean.png" alt="Transparent homelab graphic showing Ubuntu, Proxmox, Kubernetes, Docker, Kali Linux, and Puppy Linux logos" loading="lazy">
                 </figure>
 
                 <div class="project-content">
@@ -737,10 +738,16 @@
         </header>
 
         <section class="mapbox" data-mapbox>
+          <div class="map-status" data-map-status>
+            <strong>Los Angeles, California</strong>
+            <p role="status" data-map-message>Loading map…</p>
+            <button type="button" class="form-btn" data-map-retry hidden>Retry map</button>
+          </div>
           <figure>
             <iframe
-              src="https://www.google.com/maps?q=Los%20Angeles%2C%20CA&amp;output=embed"
-              width="400" height="300" loading="lazy"></iframe>
+              data-map-src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m3!2m1!1sLos+Angeles,+California!6i12!3m1!1sen!5m1!1sen"
+              title="Map showing Los Angeles, California"
+              width="600" height="450" loading="eager" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </figure>
         </section>
 

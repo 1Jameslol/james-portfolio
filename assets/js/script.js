@@ -6,13 +6,12 @@ if (spaceCanvas) {
   const spaceContext = spaceCanvas.getContext('2d');
   const purple = { red: 194, green: 166, blue: 255 };
   const stars = [];
-  const bursts = [];
   let spaceWidth = 0;
   let spaceHeight = 0;
   let pixelRatio = 1;
 
   const resizeSpace = () => {
-    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
     spaceWidth = window.innerWidth;
     spaceHeight = window.innerHeight;
     spaceCanvas.width = Math.floor(spaceWidth * pixelRatio);
@@ -33,23 +32,8 @@ if (spaceCanvas) {
     }
   };
 
-  const addSpaceBurst = (x, y) => {
-    bursts.push({ x, y, radius: 0, alpha: .9 });
-    for (let index = 0; index < 12; index += 1) {
-      const angle = (Math.PI * 2 * index) / 12;
-      bursts.push({
-        x,
-        y,
-        radius: 1,
-        alpha: .95,
-        speed: Math.random() * 1.8 + 1.4,
-        angle,
-        particle: true,
-      });
-    }
-  };
-
-  const drawSpace = (time) => {
+  // Draw the wallpaper only on load/resize, not continuously behind glass panels.
+  const drawSpace = () => {
     spaceContext.clearRect(0, 0, spaceWidth, spaceHeight);
 
     const glow = spaceContext.createRadialGradient(
@@ -63,11 +47,7 @@ if (spaceCanvas) {
     spaceContext.fillRect(0, 0, spaceWidth, spaceHeight);
 
     stars.forEach((star, index) => {
-      star.x += star.drift;
-      if (star.x < -4) star.x = spaceWidth + 4;
-      if (star.x > spaceWidth + 4) star.x = -4;
-
-      const pulse = star.alpha + Math.sin(time * .0012 + star.twinkle) * .14;
+      const pulse = star.alpha;
       spaceContext.beginPath();
       spaceContext.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
       spaceContext.fillStyle = `rgba(${purple.red}, ${purple.green}, ${purple.blue}, ${Math.max(.08, pulse)})`;
@@ -87,39 +67,18 @@ if (spaceCanvas) {
       }
     });
 
-    for (let index = bursts.length - 1; index >= 0; index -= 1) {
-      const burst = bursts[index];
-      burst.alpha -= burst.particle ? .018 : .025;
-      if (burst.particle) {
-        burst.x += Math.cos(burst.angle) * burst.speed;
-        burst.y += Math.sin(burst.angle) * burst.speed;
-        burst.radius += .06;
-      } else {
-        burst.radius += 3.5;
-      }
-
-      if (burst.alpha <= 0) {
-        bursts.splice(index, 1);
-        continue;
-      }
-
-      spaceContext.beginPath();
-      spaceContext.arc(burst.x, burst.y, burst.radius, 0, Math.PI * 2);
-      spaceContext.strokeStyle = `rgba(${purple.red}, ${purple.green}, ${purple.blue}, ${burst.alpha})`;
-      spaceContext.lineWidth = burst.particle ? 1.5 : 1;
-      spaceContext.stroke();
-    }
-
-    window.requestAnimationFrame(drawSpace);
   };
 
   resizeSpace();
-  window.addEventListener('resize', resizeSpace, { passive: true });
-  window.addEventListener('click', (event) => {
-    if (event.target.closest('a, button, input, textarea, select, label, form')) return;
-    addSpaceBurst(event.clientX, event.clientY);
-  });
-  window.requestAnimationFrame(drawSpace);
+  drawSpace();
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      resizeSpace();
+      drawSpace();
+    }, 150);
+  }, { passive: true });
 }
 
 const toggle = (element) => element?.classList.toggle('active');
@@ -189,12 +148,49 @@ form?.addEventListener('submit', (event) => {
   window.location.href = mailtoUrl;
 });
 
+const mapBox = document.querySelector('[data-mapbox]');
+let mapState = 'idle';
+let mapAttempt = 0;
+const loadContactMap = () => {
+  if (!mapBox || mapState === 'loading' || mapState === 'loaded') return;
+  const attempt = ++mapAttempt;
+  const oldFrame = mapBox.querySelector('iframe');
+  const frame = oldFrame.cloneNode(false);
+  const status = mapBox.querySelector('[data-map-status]');
+  const message = mapBox.querySelector('[data-map-message]');
+  const retry = mapBox.querySelector('[data-map-retry]');
+  mapState = 'loading';
+  mapBox.classList.remove('map-loaded');
+  status.hidden = false;
+  retry.hidden = true;
+  message.textContent = 'Loading map…';
+  // A new frame per attempt prevents stale requests from completing a retry.
+  const timeout = setTimeout(() => {
+    if (attempt !== mapAttempt || mapState !== 'loading') return;
+    mapState = 'slow';
+    message.textContent = 'Google Maps is still loading. You can keep waiting or retry.';
+    retry.hidden = false;
+  }, 10000);
+  frame.addEventListener('load', () => {
+    if (attempt !== mapAttempt || !['loading', 'slow'].includes(mapState) || !frame.hasAttribute('src')) return;
+    clearTimeout(timeout);
+    mapState = 'loaded';
+    status.hidden = true;
+    mapBox.classList.add('map-loaded');
+  }, { once: true });
+  frame.src = frame.dataset.mapSrc;
+  oldFrame.replaceWith(frame);
+};
+document.querySelector('[data-map-retry]')?.addEventListener('click', loadContactMap);
+
 const pages = document.querySelectorAll('[data-page]');
 document.querySelectorAll('[data-nav-link]').forEach((link) => {
   link.addEventListener('click', () => {
     const page = link.textContent.trim().toLowerCase();
     document.body.classList.toggle('about-page', page === 'about');
     pages.forEach((section) => section.classList.toggle('active', section.dataset.page === page));
+    // Start only after the contact panel has a visible layout.
+    if (page === 'contact' && mapState === 'idle') requestAnimationFrame(loadContactMap);
     document.querySelectorAll('[data-nav-link]').forEach((navLink) => {
       navLink.classList.toggle('active', navLink.textContent.trim().toLowerCase() === page);
     });
