@@ -202,6 +202,22 @@ article.active { display: block; animation: fade .5s ease both; }
 .project-img { position: relative; min-height: 0; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; }
 .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--speed); }
 .project-detail .project-img img { object-fit: cover; object-position: center 50%; }
+.project-img.cptc-logo { background: transparent; }
+.project-img.cptc-logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8%;
+}
+.project-img.cptc-logo .cptc-mark {
+  clip-path: inset(0 50% 0 0);
+}
+.project-img.cptc-logo .cptc-text {
+  clip-path: inset(0 0 0 50%);
+  filter: grayscale(1) brightness(0) invert(1);
+}
 .project-img.ncl-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.wrccdc-logo img { display: block; width: 93%; height: 93%; margin: 3.5% auto; object-fit: contain; }
 .project-img.sdsu-logo img { object-fit: contain; }
@@ -384,6 +400,12 @@ article,
   border-width: 2px;
 }
 
+/* Keep resume skills open like the surrounding timeline sections. */
+.skills-list {
+  border: 0;
+  background: transparent;
+}
+
 .sidebar::before,
 article::before,
 .article-title {
@@ -422,4 +444,12 @@ article,
 .select-list,
 .icon-box {
   border-width: 2px;
+}
+
+/* The resume skills should not render as a bordered card. */
+ul.skills-list.content-card {
+  border: none !important;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
