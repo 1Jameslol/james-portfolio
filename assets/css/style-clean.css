@@ -69,6 +69,7 @@ main {
 .sidebar,
 article {
   position: relative;
+  user-select: text;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -93,6 +94,7 @@ article::after {
 }
 
 .sidebar { margin-bottom: 12px; padding: 14px; }
+body:not(.about-page) .sidebar { display: none; }
 
 .sidebar::before,
 article::before {
@@ -140,10 +142,10 @@ article.active { display: block; animation: fade .5s ease both; }
 .contact-title { margin: 0 0 3px; color: var(--green-dim); font-size: 10px; text-transform: uppercase; }
 .contact-info :is(.contact-link, time, address) { display: block; overflow: hidden; color: var(--text); font-size: 12px; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
 .social-list { display: flex; gap: 14px; }
-.social-link { color: var(--green-dim); font-size: 20px; transition: color var(--speed); }
-.social-link img { width: 20px; height: 20px; }
+.social-link { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--green); border-radius: 4px; color: #08070a; background: var(--green); box-shadow: 0 0 24px 6px rgba(194, 166, 255, .42); font-size: 22px; transition: color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
+.social-link img { width: 22px; height: 22px; }
 .service-icon-box img, .social-link img { filter: grayscale(1); }
-.social-link:hover { color: var(--green); }
+.social-link:hover { color: #08070a; background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
 
 .main-content { width: 100%; }
 .navbar { width: max-content; margin: 0 0 12px auto; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(12, 8, 18, .95); }
@@ -165,12 +167,13 @@ article.active { display: block; animation: fade .5s ease both; }
 .about-portfolio-button { padding: 16px 28px; border: 1px solid var(--green); border-radius: 4px; color: #08070a; background: var(--green); box-shadow: 0 0 24px 6px rgba(194, 166, 255, .42); font-size: 16px; letter-spacing: .5px; transition: color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
 .about-portfolio-button:hover { color: #08070a; background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
 .about-portfolio-button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
-.resume-download { display: inline-flex; flex-direction: row; align-items: center; gap: 7px; width: fit-content; max-width: 100%; padding: 7px 10px; border: 1px solid var(--line); border-radius: 3px; color: var(--green); background: transparent; font-size: 12px; line-height: 1.2; white-space: nowrap; transition: border-color var(--speed), background var(--speed); }
+.resume-download { display: inline-flex; flex-direction: row; align-items: center; gap: 7px; width: fit-content; max-width: 100%; padding: 10px 16px; border: 1px solid var(--green); border-radius: 3px; color: #08070a; background: var(--green); box-shadow: 0 0 24px 6px rgba(194, 166, 255, .42); font-size: 12px; line-height: 1.2; white-space: nowrap; transition: border-color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
 .resume-download ion-icon { flex: 0 0 auto; font-size: 15px; }
-.resume-download:hover { border-color: var(--green-dim); background: var(--panel-light); }
+.resume-download:hover { border-color: var(--green); background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
 .resume-download:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
-.resume-page-download { position: absolute; right: calc(10% + 60px); bottom: 74px; justify-content: center; min-width: 230px; padding: 12px 18px; font-size: 14px; }
-.terminal { margin: 0 0 34px; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: #08070a; box-shadow: 0 10px 30px rgba(0, 0, 0, .3); animation: fade .5s ease both; transition: border-color var(--speed), box-shadow var(--speed), transform var(--speed); }
+.resume-page-download { position: absolute; right: calc(10% + 60px); bottom: 74px; justify-content: center; min-width: 230px; padding: 15px 24px; font-size: 14px; }
+.about-resume-download { padding: 15px 24px; }
+.terminal { margin: 0 0 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: #08070a; box-shadow: 0 10px 30px rgba(0, 0, 0, .3); animation: fade .5s ease both; transition: border-color var(--speed), box-shadow var(--speed), transform var(--speed); }
 .terminal:hover, .terminal:focus-within { border-color: var(--green-dim); box-shadow: 0 0 0 1px rgba(194, 166, 255, .12), 0 12px 34px rgba(0, 0, 0, .4); }
 .terminal:hover { transform: translateY(-2px); }
 .terminal-bar { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 34px; padding: 7px 12px; border-bottom: 1px solid var(--line); color: var(--green-dim); background: #111; font-size: 10px; letter-spacing: .4px; }
@@ -503,7 +506,7 @@ article::before,
     margin: 0;
   }
 
-  .terminal { margin-top: 58px; }
+  .terminal { margin-top: 20px; }
   .main-content { position: static; }
   .main-content article.active { margin-top: 12px; }
 }

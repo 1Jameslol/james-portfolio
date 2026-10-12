@@ -193,6 +193,7 @@ const pages = document.querySelectorAll('[data-page]');
 document.querySelectorAll('[data-nav-link]').forEach((link) => {
   link.addEventListener('click', () => {
     const page = link.textContent.trim().toLowerCase();
+    document.body.classList.toggle('about-page', page === 'about');
     pages.forEach((section) => section.classList.toggle('active', section.dataset.page === page));
     document.querySelectorAll('[data-nav-link]').forEach((navLink) => {
       navLink.classList.toggle('active', navLink.textContent.trim().toLowerCase() === page);
@@ -208,7 +209,10 @@ if (window.location.search) {
 }
 
 if ([...pages].some((page) => page.dataset.page === initialPage)) {
-  document.querySelector(`[data-nav-link]`)?.click();
+  document.body.classList.toggle('about-page', initialPage === 'about');
+  [...document.querySelectorAll('[data-nav-link]')]
+    .find((link) => link.textContent.trim().toLowerCase() === initialPage)
+    ?.click();
   document.querySelectorAll('[data-nav-link]').forEach((link) => {
     const isActive = link.textContent.trim().toLowerCase() === initialPage;
     link.classList.toggle('active', isActive);
