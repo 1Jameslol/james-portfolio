@@ -191,8 +191,9 @@ article.active { display: block; animation: fade .5s ease both; }
 .terminal-input:focus-visible { outline: 0; }
 .terminal-input::placeholder { color: #74618f; }
 .service-title, .skills-title, .form-title { margin: 0 0 18px; color: var(--text); font-size: 20px; }
+.service-title { margin-bottom: 30px; font-size: 34px; letter-spacing: -.03em; }
 .service-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.service-item { display: flex; align-items: flex-start; gap: 16px; min-height: 154px; padding: 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); transition: border-color var(--speed), transform var(--speed), box-shadow var(--speed); }
+.service-item { display: flex; align-items: center; gap: 16px; min-height: 0; padding: 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); transition: border-color var(--speed), transform var(--speed), box-shadow var(--speed); }
 .service-item:hover { border-color: var(--green-dim); transform: translateY(-2px); }
 .service-item:hover { box-shadow: 0 10px 24px rgba(0, 0, 0, .28); }
 .service-icon-box { flex: 0 0 86px; width: 86px; }
@@ -295,7 +296,7 @@ article.active { display: block; animation: fade .5s ease both; }
   object-fit: contain;
 }
 .project-img.homelab-photo img { display: block; position: relative; z-index: 1; width: 100%; height: 100%; margin: 0; object-fit: contain; object-position: center; transform: translateX(2%); }
-.project-img.sdyc-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; filter: brightness(1.45) saturate(1.1); }
+.project-img.sdyc-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; filter: brightness(1.1) saturate(1.1); }
 .project-img.raices-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.raices-logo .raices-logo-white { position: absolute; inset: 9%; z-index: 1; width: 82%; height: 82%; margin: 0; filter: brightness(0) invert(1); clip-path: inset(0 42% 0 0); pointer-events: none; }
 .project-item > a:hover img { transform: scale(1.08); }
@@ -453,6 +454,10 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
 
   .resume .skills-list {
     padding: 14px;
+  }
+
+  .resume .skill + .timeline {
+    margin-top: 32px;
   }
 
   .contact.active,
@@ -718,7 +723,7 @@ article::before:first-letter { color: var(--red); }
 .resume-download:hover { color: #101625; background: #fff; box-shadow: 0 16px 38px rgba(0, 0, 0, .26), inset 0 1px 0 #fff; }
 
 .service-list { gap: 18px; }
-.service-item { min-height: 154px; padding: 18px; border-radius: 20px; }
+.service-item { min-height: 0; padding: 18px; border-radius: 20px; }
 .service-item:hover { border-color: rgba(255, 255, 255, .4); box-shadow: 0 18px 34px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(255, 255, 255, .26); }
 .service-item-title,
 .timeline .title-wrapper .h3,
@@ -801,7 +806,7 @@ ul.skills-list.content-card {
   }
   .navbar-list { justify-content: space-around; gap: 0; }
   .navbar-link { min-height: 44px; padding: 10px 14px; font-size: 13px; }
-  .service-item { flex-direction: column; gap: 14px; }
+  .service-item { flex-direction: column; align-items: flex-start; gap: 14px; }
   .service-project-icon { flex: none; }
   .service-cptc-icon { margin-top: 0; height: 86px; }
   .service-item-title { font-size: 16px; }
