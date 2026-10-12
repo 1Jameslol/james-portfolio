@@ -195,7 +195,7 @@ document.querySelectorAll('[data-nav-link]').forEach((link) => {
     const page = link.textContent.trim().toLowerCase();
     pages.forEach((section) => section.classList.toggle('active', section.dataset.page === page));
     document.querySelectorAll('[data-nav-link]').forEach((navLink) => {
-      navLink.classList.toggle('active', navLink === link);
+      navLink.classList.toggle('active', navLink.textContent.trim().toLowerCase() === page);
     });
     history.replaceState(null, '', `${window.location.pathname}#${page}`);
     window.scrollTo(0, 0);
