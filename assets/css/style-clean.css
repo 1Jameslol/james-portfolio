@@ -175,7 +175,7 @@ article.active { display: block; animation: fade .5s ease both; }
 .resume-download ion-icon { flex: 0 0 auto; font-size: 15px; }
 .resume-download:hover { border-color: var(--green); background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
 .resume-download:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
-.resume-page-download { position: absolute; right: calc(10% + 60px); bottom: 74px; justify-content: center; min-width: 230px; padding: 15px 24px; font-size: 14px; }
+.resume-page-download { position: absolute; left: 180px; right: auto; bottom: 35px; justify-content: center; min-width: 230px; padding: 15px 24px; font-size: 14px; }
 .about-resume-download { padding: 15px 24px; }
 .terminal { margin: 0 0 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: #08070a; box-shadow: 0 10px 30px rgba(0, 0, 0, .3); animation: fade .5s ease both; transition: border-color var(--speed), box-shadow var(--speed), transform var(--speed); }
 .terminal:hover, .terminal:focus-within { border-color: var(--green-dim); box-shadow: 0 0 0 1px rgba(194, 166, 255, .12), 0 12px 34px rgba(0, 0, 0, .4); }
@@ -414,6 +414,11 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
   .resume.active > .timeline:nth-of-type(4) {
     float: left;
     clear: left;
+  }
+
+  .resume.active > .organizations {
+    float: right;
+    clear: none;
   }
 
   .resume.active::after {
