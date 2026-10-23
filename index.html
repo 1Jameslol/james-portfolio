@@ -639,23 +639,36 @@
                   <p class="project-category">Personal Infrastructure Project · June 2026 — August 2026</p>
                   <h3 class="project-title">Homelab Infrastructure</h3>
                   <p class="project-description">
-                    Built a Debian-based homelab on Apple T2 hardware with Proxmox running as the hypervisor. An Ubuntu virtual machine runs the Samba file server, a 20 year old Acer Aspire running Puppy Linux runs the WireGuard VPN, and additional Proxmox VMs provide isolated environments for testing and technical writeups.
+                    Built a Debian-based Proxmox homelab on Apple T2 hardware for systems administration, networking, and security experimentation. An Ubuntu VM hosts Samba file sharing, while a 20-year-old Acer Aspire running Puppy Linux provides WireGuard VPN access.
                   </p>
 
                   <div class="project-detail-grid">
                     <section class="project-detail-section">
                       <h4>Virtualization &amp; Services</h4>
-                      <p>Ran Proxmox on Debian under Apple T2 hardware, hosted an Ubuntu Samba file server VM, and ran a Puppy Linux WireGuard VPN VM.</p>
+                      <p>Dedicated Proxmox resource pools organize core infrastructure, networking, security tooling, monitoring, and disposable testing systems.</p>
                     </section>
                     <section class="project-detail-section">
-                      <h4>Testing &amp; Documentation</h4>
-                      <p>Maintained additional Proxmox VMs for isolated testing, experimentation, and technical writeups.</p>
+                      <h4>Security &amp; Operations</h4>
+                      <p>Uses iptables firewall rules and CLI troubleshooting. Designed for security monitoring, detection engineering, incident response, and vulnerability management, with telemetry across the lab.</p>
+                    </section>
+                    <section class="project-detail-section">
+                      <h4>Automation &amp; Delivery</h4>
+                      <p>Designed for Infrastructure as Code, configuration management, CI/CD, GitOps, and security automation across the environment.</p>
+                    </section>
+                    <section class="project-detail-section">
+                      <h4>Testing &amp; Validation</h4>
+                      <p>Isolated VMs support technical writeups and a repeatable workflow: investigate incidents, apply remediation, repeat attacks, and validate detection and mitigation.</p>
                     </section>
                   </div>
 
                   <div class="project-stack">
                     <h4>Technology</h4>
-                    <p>Debian · Proxmox · Apple T2 hardware · Ubuntu · Samba · Puppy Linux · WireGuard · Virtual machines · Testing · Technical writeups</p>
+                    <p>Debian · Proxmox · Apple T2 hardware · Ubuntu · Samba · Puppy Linux · WireGuard · iptables · Docker · Kubernetes · Ansible · Proxmox resource pools · Virtual machines</p>
+                  </div>
+
+                  <div class="project-stack">
+                    <h4>Design Goals</h4>
+                    <p>Systems administration · Network engineering · Network security · Container security · Cloud-native infrastructure</p>
                   </div>
                 </div>
               </div>
