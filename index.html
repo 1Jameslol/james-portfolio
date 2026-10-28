@@ -6,6 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1James</title>
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (() => {
+      let savedTheme;
+      try { savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
+      const theme = ['light', 'dark'].includes(savedTheme)
+        ? savedTheme
+        : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
 
   <!--
     - favicon
@@ -15,15 +27,15 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./assets/css/style-clean.css?v=20261012-glass-fix">
+  <link rel="stylesheet" href="./assets/css/style-clean.css?v=20261028-glass-cli">
+  <link rel="stylesheet" href="./assets/css/liquid-glass.css?v=20261028-about-spacing">
+  <link rel="stylesheet" href="./assets/css/about-resume.css?v=20261028-stable-profile">
+  <link rel="stylesheet" href="./assets/css/portfolio-contact.css?v=20261028-glass-cli">
 
   <!--
-    - google font link
+    - preconnect for the contact map
   -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.google.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="about-page">
@@ -51,7 +63,10 @@
         <div class="info-content">
           <h1 class="name" title="James Clarke">James Clarke</h1>
 
-          <p class="title">Deputy System Administrator</p>
+          <div class="profile-badges">
+            <p class="title">Deputy System Administrator</p>
+            <p class="title">@ SDSU Cyber Defense Team</p>
+          </div>
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
@@ -61,6 +76,25 @@
         </button>
 
       </div>
+
+      <section class="about-text profile-about" aria-label="Introduction">
+        <p>
+          | Currently Studying for CompTIA Security+ | <br>
+          | Aspiring Security Engineer |
+        </p>
+
+        <a class="resume-download about-resume-download" href="./Resume.pdf" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+          <span>Download Resume (PDF)</span>
+        </a>
+
+        <div class="about-portfolio-cta">
+          <button class="about-portfolio-button" type="button" data-nav-link>
+            <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            <span>Portfolio</span>
+          </button>
+        </div>
+      </section>
 
       <div class="sidebar-info_more">
 
@@ -128,6 +162,10 @@
 
     </aside>
 
+    <button class="profile-terminal-toggle" type="button" data-terminal-toggle aria-controls="portfolio-terminal" aria-expanded="false" aria-label="Show CLI" title="Show CLI">
+      <span aria-hidden="true">CLI</span>
+    </button>
+
 
 
 
@@ -164,9 +202,14 @@
 
         </ul>
 
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode">
+          <ion-icon name="moon-outline" aria-hidden="true"></ion-icon>
+          <span>Dark</span>
+        </button>
+
       </nav>
 
-      <section class="terminal" aria-label="Interactive portfolio terminal">
+      <section class="terminal" id="portfolio-terminal" aria-label="Interactive portfolio terminal">
         <div class="terminal-bar">
           <span class="terminal-lights" aria-hidden="true">● ● ●</span>
           <span>portfolio: ~ james$</span>
@@ -192,38 +235,13 @@
 
       <article class="about  active" data-page="about">
 
-        <header>
-          <h2 class="h2 article-title">About Me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-          | Deputy System Administrator @ SDSU Cyber Defense Team | <br>
-          | Currently Studying for CompTIA Security+ | <br>
-          | Aspiring Incident Response Analyst | <br>
-
-          </p>
-
-          <a class="resume-download about-resume-download" href="./Resume.pdf" target="_blank" rel="noopener noreferrer">
-            <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
-            <span>Download Resume (PDF)</span>
-          </a>
-
-          <div class="about-portfolio-cta">
-            <button class="about-portfolio-button" type="button" data-nav-link>
-              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-              <span>Portfolio</span>
-            </button>
-          </div>
-        </section>
-
         <!--
           - service
         -->
 
         <section class="service">
 
-          <h3 class="h3 service-title">What I'm Doing</h3>
+          <h2 class="h3 service-title">What I'm Doing</h2>
 
           <ul class="service-list">
 
@@ -234,42 +252,10 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Container Orchestration</h4>
+                <h4 class="h4 service-item-title">System Administration &amp; Homelabbing</h4>
 
                 <p class="service-item-text">
-                  Building and operating practical Linux infrastructure with Proxmox, Docker, Kubernetes, Ansible automation, and homelab services.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box service-project-icon service-server-icon">
-                <img src="./assets/images/service-infrastructure-server.png" alt="Server rack illustration" loading="lazy">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">System Administration</h4>
-
-                <p class="service-item-text">
-                  Administering DNS, LDAP, PKI, mail, file sharing, web services, containers, remote access, and fault-tolerant systems.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box service-project-icon">
-                <img src="./assets/images/service-security-assessment.png" alt="Cartoon security assessment checklist" loading="lazy">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Security Assessments</h4>
-
-                <p class="service-item-text">
-                  Reviewing security practices, access controls, least privilege, workflows, and security controls to reduce risk.
+                  Administering Linux/UNIX boxes with tools such as, Proxmox, Docker, Kubernetes, and Ansible. Built a homelab with security testing and core infrastructure services.
                 </p>
               </div>
 
@@ -283,10 +269,42 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Penetration Testing &amp; Scripting</h4>
+                <h4 class="h4 service-item-title">Competitions</h4>
 
                 <p class="service-item-text">
-                  Practicing penetration testing, service enumeration, vulnerability validation, and Python and Bash scripting for repeatable security workflows.
+                  Competing in Collegiate Cyber Defense and Penetration Testing Competitions, including WRCCDC Invitationals and CPTC. Gaining hands on experience in real attack and defend environments from a professional red team and blue team.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box service-project-icon">
+                <img src="./assets/images/service-security-assessment.png" alt="Cartoon security assessment checklist" loading="lazy">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Security Consulting</h4>
+
+                <p class="service-item-text">
+                  Assessing non-profit companies security practices, access controls, least privilege, and security controls to identify and reduce risk based on current security models.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box service-project-icon service-ncl-icon">
+                <img src="./assets/images/service-ncl.png" alt="National Cyber League (NCL) logo" loading="lazy">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">CTFs &amp; Security Practice</h4>
+
+                <p class="service-item-text">
+                  Practicing Scanning &amp; Reconnaissance, Enumeration, Log Analysis, OSINT, Forensics, and brute force scripting through CTF challenges.
                 </p>
               </div>
 
@@ -313,6 +331,10 @@
           <h2 class="h2 article-title">Resume</h2>
         </header>
 
+        <p class="resume-scroll-hint">Scroll or swipe horizontally to explore</p>
+
+        <div class="resume-track" tabindex="0" aria-label="Resume sections; use left and right arrow keys to explore">
+
         <section class="timeline">
 
           <div class="title-wrapper">
@@ -329,10 +351,10 @@
 
               <h4 class="h4 timeline-item-title">San Diego State University</h4>
 
-              <span>Expected May 2029</span>
+              <span>San Diego, CA · Expected May 2029</span>
 
               <p class="timeline-text">
-                Bachelor of Science. Major: Computer Science. Minor: Mathematics. Relevant coursework: CS470 UNIX System Administration.
+                Bachelor of Science, Computer Science. Minor: Mathematics. Relevant coursework: CS470 UNIX System Administration.
               </p>
 
             </li>
@@ -357,10 +379,10 @@
 
               <h4 class="h4 timeline-item-title">Regional Collegiate Penetration Testing Competition</h4>
 
-              <span>Penetration Testing Team Member · October 2026</span>
+              <span>Penetration Testing Team Member · Pomona, CA · October 2026</span>
 
               <p class="timeline-text">
-                Conducted authorized penetration testing against systems and services in a controlled collegiate competition. Performed network reconnaissance and service enumeration, then documented vulnerabilities, evidence, and risk-based remediation recommendations in a team report.
+                Conducted authorized penetration testing, performing network reconnaissance and service enumeration to find attack paths. Documented vulnerabilities, technical evidence, and risk-based remediation recommendations in a team report.
               </p>
 
             </li>
@@ -369,10 +391,10 @@
 
               <h4 class="h4 timeline-item-title">SDSU Cyber Defense Team</h4>
 
-              <span>Deputy System Administrator · April 2026 — Present</span>
+              <span>Deputy System Administrator · San Diego, CA · April 2026 — Present</span>
 
               <p class="timeline-text">
-                Manage a multi-OS virtualized infrastructure supporting club activities, WireGuard VPN, Windows Server, DNS/PKI, Ubuntu, AlmaLinux, FreeBSD, and containerized systems. Deploy and monitor Proxmox, Terraform, Ansible, Packer, Forgejo, CI/CD runners, Docker, and LXC services. Participated two times in the WRCCDC Invitational as a Blue Team IT Team Member.
+                Manage multi-OS virtualized infrastructure with WireGuard VPN, Windows Server, DNS/PKI, and Unix/Linux. Deployed and monitored VMs and services using Proxmox, Terraform, Ansible, Packer, Forgejo, Docker, and LXC. Participated in the WRCCDC Invitational as a Blue Team IT Team Member, defending Linux systems against simulated red-team attacks while analyzing logs, conducting Nmap scans, and supporting system hardening.
               </p>
 
             </li>
@@ -381,10 +403,10 @@
 
               <h4 class="h4 timeline-item-title">San Diego Yacht Club</h4>
 
-              <span>Security Consultant · September 2026 — Present</span>
+              <span>Security Consultant · San Diego, CA · September 2026 — Present</span>
 
               <p class="timeline-text">
-                Conduct a security risk assessment of staff technology practices, systems, workflows, training, and security controls. Review access controls, least-privilege practices, and security frameworks, then collaborate on recommendations to improve the organization’s security posture.
+                Conducted a cybersecurity risk assessment of the SDYC staff technology practices, systems, workflows, training, and security controls to evaluate confidentiality, integrity, availability, and overall security posture. Reviewed access controls, least-privilege practices, and security frameworks to identify risks.
               </p>
 
             </li>
@@ -393,12 +415,20 @@
 
               <h4 class="h4 timeline-item-title">SDSU Infrastructure Lab</h4>
 
-              <span>System Administrator · January 2026 — May 2026</span>
+              <span>System Administrator · San Diego, CA · January 2026 — May 2026</span>
 
               <p class="timeline-text">
-                Built a multi-OS lab with DNS, LDAP, PKI, SMTP/IMAP, NFS, nginx/Docker, and centralized logging. Configured UNIX/Linux servers for authentication, mail, file sharing, web hosting, containers, and remote access, then deployed a multi-node Kubernetes cluster with fault-tolerant web services and automated failover.
+                Built a multi-OS lab with DNS, LDAP, PKI, SMTP/IMAP, NFS, nginx/Docker, and centralized logging. Deployed a multi-node Kubernetes cluster with fault-tolerant web services and automated failover.
               </p>
 
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Homelab</h4>
+              <span>Personal Project</span>
+              <p class="timeline-text">
+                Built a Proxmox lab with pfSense, Kubernetes, Docker, Terraform, Ansible, WireGuard, and Tailscale, with dedicated resource pools for infrastructure, security tooling, monitoring, and operating system testing. Ran Suricata and Splunk to monitor network traffic and detect suspicious activity on my network.
+              </p>
             </li>
 
           </ol>
@@ -418,28 +448,28 @@
           <ul class="timeline-list">
 
             <li class="timeline-item">
-              <h5 class="h5 skills-item-title">Networking &amp; Infrastructure</h5>
-              <p class="skills-item-details">DNS, LDAP, SMTP, IMAP, NFS, SSH, VPNs, PKI, Git, GitHub, nginx</p>
+              <h5 class="h5 skills-item-title">Networking &amp; Security</h5>
+              <p class="skills-item-details">TCP/IP, DNS, NFS/SMB, SSH, PKI, WireGuard, Tailscale, pfSense</p>
             </li>
 
             <li class="timeline-item">
               <h5 class="h5 skills-item-title">Security &amp; Log Analysis</h5>
-              <p class="skills-item-details">Wireshark, tcpdump, Nmap</p>
+              <p class="skills-item-details">Nmap, Wireshark, Splunk, Suricata</p>
             </li>
 
             <li class="timeline-item">
-              <h5 class="h5 skills-item-title">Systems &amp; Cloud</h5>
-              <p class="skills-item-details">Azure, Docker, Proxmox, Linux, UNIX administration, UTM, Kubernetes</p>
+              <h5 class="h5 skills-item-title">Infrastructure &amp; DevOps</h5>
+              <p class="skills-item-details">Proxmox, Docker, Kubernetes, Terraform, Ansible, Azure, Nextcloud, nginx, Git</p>
             </li>
 
             <li class="timeline-item">
               <h5 class="h5 skills-item-title">Operating Systems</h5>
-              <p class="skills-item-details">OpenBSD, FreeBSD, AlmaLinux, Ubuntu, Solaris, AIX, Windows, macOS</p>
+              <p class="skills-item-details">Linux/UNIX, Windows Server, OpenBSD, FreeBSD, AlmaLinux, Ubuntu, Debian</p>
             </li>
 
             <li class="timeline-item">
               <h5 class="h5 skills-item-title">Scripting</h5>
-              <p class="skills-item-details">Python, C++, Java, Bash</p>
+              <p class="skills-item-details">Python, C++, Bash</p>
             </li>
 
           </ul>
@@ -464,7 +494,7 @@
 
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">CompTIA Security+</h4>
-              <span>Expected December 2026</span>
+              <span>Expected Dec. 2026</span>
             </li>
 
             <li class="timeline-item">
@@ -487,16 +517,16 @@
 
           <ol class="timeline-list">
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">SDSU AITP <span>(Member · October 2026 — Present)</span></h4>
+              <h4 class="h4 timeline-item-title">AITP (Association for IT Professionals) <span>Member</span></h4>
               <p class="timeline-text">
-                Attend weekly industry lectures and company headquarters visits focused on technology and cybersecurity.
+                Member of the Association for IT Professionals.
               </p>
             </li>
 
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">SDSU AI Club <span>(Member · August 2025 — Present)</span></h4>
+              <h4 class="h4 timeline-item-title">SDSU AI Club <span>Member</span></h4>
               <p class="timeline-text">
-                Built a bird-versus-airplane image classifier using Kaggle data and Python.
+                Member of the SDSU AI Club.
               </p>
             </li>
           </ol>
@@ -507,6 +537,8 @@
           <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
           <span>Download Resume (PDF)</span>
         </a>
+
+        </div>
 
       </article>
 
@@ -524,9 +556,22 @@
           <h2 class="h2 article-title">Competitions and Projects</h2>
         </header>
 
-        <section class="projects">
+        <section class="projects" data-project-gallery aria-label="Project gallery">
 
-          <ul class="project-list">
+          <div class="project-navigation" data-project-navigation hidden>
+            <p class="project-scroll-hint" id="project-scroll-hint">Scroll or swipe to explore</p>
+            <div class="project-navigation-controls">
+              <span class="project-position" data-project-position role="status" aria-live="polite" aria-atomic="true"></span>
+              <button class="project-arrow" type="button" data-project-previous aria-label="Previous project or competition" aria-controls="project-gallery">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>
+              </button>
+              <button class="project-arrow" type="button" data-project-next aria-label="Next project or competition" aria-controls="project-gallery">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 6 6 6-6 6" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <ul class="project-list" id="project-gallery" data-project-list tabindex="0" aria-label="Projects and competitions; use left and right arrow keys to explore">
 
             <li class="project-item active" data-filter-item data-category="infrastructure" data-order="5">
               <div class="project-detail">
@@ -636,39 +681,26 @@
                 </figure>
 
                 <div class="project-content">
-                  <p class="project-category">Personal Infrastructure Project · June 2026 — August 2026</p>
+                  <p class="project-category">Personal Project · June 2026 — August 2026</p>
                   <h3 class="project-title">Homelab Infrastructure</h3>
                   <p class="project-description">
-                    Built a Debian-based Proxmox homelab on Apple T2 hardware for systems administration, networking, and security experimentation. An Ubuntu VM hosts Samba file sharing, while a 20-year-old Acer Aspire running Puppy Linux provides WireGuard VPN access.
+                    Built a Debian-based Proxmox homelab on Apple T2 hardware for systems administration, networking, and security testing. An Ubuntu VM hosts Samba file sharing, while a repurposed Acer Aspire running Puppy Linux provides WireGuard VPN access. Isolated VMs support repeatable testing and remediation workflows.
                   </p>
 
                   <div class="project-detail-grid">
                     <section class="project-detail-section">
                       <h4>Virtualization &amp; Services</h4>
-                      <p>Dedicated Proxmox resource pools organize core infrastructure, networking, security tooling, monitoring, and disposable testing systems.</p>
+                      <p>Organized virtual machines into Proxmox resource pools for infrastructure, networking, monitoring, and disposable testing systems.</p>
                     </section>
                     <section class="project-detail-section">
                       <h4>Security &amp; Operations</h4>
-                      <p>Uses iptables firewall rules and CLI troubleshooting. Designed for security monitoring, detection engineering, incident response, and vulnerability management, with telemetry across the lab.</p>
-                    </section>
-                    <section class="project-detail-section">
-                      <h4>Automation &amp; Delivery</h4>
-                      <p>Designed for Infrastructure as Code, configuration management, CI/CD, GitOps, and security automation across the environment.</p>
-                    </section>
-                    <section class="project-detail-section">
-                      <h4>Testing &amp; Validation</h4>
-                      <p>Isolated VMs support technical writeups and a repeatable workflow: investigate incidents, apply remediation, repeat attacks, and validate detection and mitigation.</p>
+                      <p>Uses iptables firewall rules and CLI troubleshooting, with isolated VMs for security testing and remediation.</p>
                     </section>
                   </div>
 
                   <div class="project-stack">
                     <h4>Technology</h4>
-                    <p>Debian · Proxmox · Apple T2 hardware · Ubuntu · Samba · Puppy Linux · WireGuard · iptables · Docker · Kubernetes · Ansible · Proxmox resource pools · Virtual machines</p>
-                  </div>
-
-                  <div class="project-stack">
-                    <h4>Design Goals</h4>
-                    <p>Systems administration · Network engineering · Network security · Container security · Cloud-native infrastructure</p>
+                    <p>Proxmox · Debian · Ubuntu · Samba · Puppy Linux · WireGuard · iptables · Docker · Kubernetes · Ansible</p>
                   </div>
                 </div>
               </div>
@@ -792,6 +824,10 @@
         </header>
 
         <section class="mapbox" data-mapbox>
+          <a class="map-open-link" href="https://www.google.com/maps/search/?api=1&amp;query=Los+Angeles%2C+California%2C+USA" target="_blank" rel="noopener noreferrer">
+            Open in Maps
+            <ion-icon name="open-outline" aria-hidden="true"></ion-icon>
+          </a>
           <div class="map-status" data-map-status>
             <strong>Los Angeles, California</strong>
             <p role="status" data-map-message>Loading map…</p>
@@ -807,13 +843,10 @@
 
         <section class="contact-form">
 
-          <h3 class="h3 form-title">Contact Form</h3>
-
           <form action="#" class="form" data-form>
 
             <div class="input-wrapper">
               <input type="text" name="fullname" class="form-input" placeholder="Full name" aria-label="Full name" autocomplete="name" required data-form-input>
-
               <input type="email" name="email" class="form-input" placeholder="Email address" aria-label="Email address" autocomplete="email" required data-form-input>
             </div>
 
@@ -844,7 +877,7 @@
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/script.js?v=20261028-glass-cli"></script>
 
   <!--
     - ionicon link

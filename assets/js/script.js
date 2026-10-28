@@ -86,6 +86,47 @@ const toggle = (element) => element?.classList.toggle('active');
 const sidebar = document.querySelector('[data-sidebar]');
 document.querySelector('[data-sidebar-btn]')?.addEventListener('click', () => toggle(sidebar));
 
+const terminalToggle = document.querySelector('[data-terminal-toggle]');
+const cliPanel = document.getElementById('portfolio-terminal');
+const setCliExpanded = (expanded) => {
+  document.body.classList.toggle('cli-open', expanded);
+  if (cliPanel) cliPanel.hidden = !expanded;
+  if (terminalToggle) {
+    terminalToggle.setAttribute('aria-expanded', String(expanded));
+    const label = expanded ? 'Hide CLI' : 'Show CLI';
+    terminalToggle.setAttribute('aria-label', label);
+    terminalToggle.title = label;
+  }
+};
+setCliExpanded(false);
+terminalToggle?.addEventListener('click', () => {
+  setCliExpanded(!document.body.classList.contains('cli-open'));
+});
+
+const themeToggle = document.querySelector('[data-theme-toggle]');
+const initialTheme = document.documentElement.dataset.theme ||
+  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+const setTheme = (theme) => {
+  const isDark = theme === 'dark';
+  document.body.dataset.theme = theme;
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
+  if (themeToggle) {
+    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    themeToggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    themeToggle.querySelector('span').textContent = isDark ? 'Light' : 'Dark';
+    themeToggle.querySelector('ion-icon').setAttribute('name', isDark ? 'sunny-outline' : 'moon-outline');
+  }
+};
+
+setTheme(initialTheme);
+themeToggle?.addEventListener('click', () => {
+  const nextTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+  try { window.localStorage.setItem('portfolio-theme', nextTheme); } catch {}
+  setTheme(nextTheme);
+});
+
 const filterItems = document.querySelectorAll('[data-filter-item]');
 const filterSelect = document.querySelector('[data-select]');
 const filterValue = document.querySelector('[data-selecct-value]');
@@ -118,6 +159,248 @@ filterButtons.forEach((button) => {
   });
 });
 
+const projectGallery = document.querySelector('[data-project-gallery]');
+
+// Keep the experience timeline in the same order as the PDF resume.
+const experienceList = [...document.querySelectorAll('.resume .timeline')]
+  .find((section) => section.querySelector('h3')?.textContent.trim() === 'Experience')
+  ?.querySelector('.timeline-list');
+if (experienceList) {
+  const experienceOrder = [
+    'SDSU Cyber Defense Team',
+    'SDSU Infrastructure Lab',
+    'Regional Collegiate Penetration Testing Competition',
+    'San Diego Yacht Club',
+    'Homelab',
+  ];
+  [...experienceList.querySelectorAll('.timeline-item')]
+    .sort((first, second) => experienceOrder.indexOf(first.querySelector('.timeline-item-title')?.textContent.trim())
+      - experienceOrder.indexOf(second.querySelector('.timeline-item-title')?.textContent.trim()))
+    .forEach((item) => experienceList.append(item));
+}
+
+const resumeTrack = document.querySelector('.resume-track');
+if (resumeTrack) {
+  const desktopResume = window.matchMedia('(min-width: 768px)');
+  resumeTrack.querySelectorAll('.timeline-list').forEach((list) => {
+    const heading = list.closest('.timeline')?.querySelector('h3')?.textContent.trim();
+    list.tabIndex = 0;
+    list.setAttribute('aria-label', `${heading || 'Resume section'} details`);
+  });
+
+  resumeTrack.addEventListener('keydown', (event) => {
+    if (event.target !== resumeTrack || !desktopResume.matches || resumeTrack.scrollWidth <= resumeTrack.clientWidth + 1) return;
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const distance = Math.max(240, resumeTrack.clientWidth * .82);
+    if (event.key === 'Home') resumeTrack.scrollTo({ left: 0, behavior: 'smooth' });
+    else if (event.key === 'End') resumeTrack.scrollTo({ left: resumeTrack.scrollWidth, behavior: 'smooth' });
+    else resumeTrack.scrollBy({ left: event.key === 'ArrowRight' ? distance : -distance, behavior: 'smooth' });
+  });
+
+  resumeTrack.addEventListener('wheel', (event) => {
+    if (!desktopResume.matches || resumeTrack.scrollWidth <= resumeTrack.clientWidth + 1) return;
+    // Let the long Experience panel scroll vertically when the pointer is over its list.
+    const list = event.target.closest('.timeline-list');
+    if (list && list.scrollHeight > list.clientHeight + 1) return;
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX) || event.ctrlKey) return;
+    event.preventDefault();
+    resumeTrack.scrollBy({ left: event.deltaY, behavior: 'auto' });
+  }, { passive: false });
+}
+
+if (projectGallery) {
+  const list = projectGallery.querySelector('[data-project-list]');
+  const cards = [...list.querySelectorAll('.project-item')]
+    .sort((first, second) => Number(first.dataset.order) - Number(second.dataset.order));
+  const previous = projectGallery.querySelector('[data-project-previous]');
+  const next = projectGallery.querySelector('[data-project-next]');
+  const position = projectGallery.querySelector('[data-project-position]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mouseNavigation = window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)');
+  let currentCard = cards[0];
+  let requestedCard = null;
+  let settleTimer;
+  let wheelTimer;
+  let wheelGesture = false;
+  let wheelDistance = 0;
+  let animationFrame = null;
+  let scrollFrame;
+  let previousWidth = 0;
+
+  projectGallery.querySelector('[data-project-navigation]').hidden = false;
+
+  const visibleCards = () => cards.filter((card) => card.classList.contains('active'));
+  const cardLeft = (card) => {
+    const padding = parseFloat(getComputedStyle(list).paddingLeft) || 0;
+    const left = card.getBoundingClientRect().left - list.getBoundingClientRect().left + list.scrollLeft - padding;
+    return Math.max(0, Math.min(left, list.scrollWidth - list.clientWidth));
+  };
+
+  const updateNavigation = (card) => {
+    if (!card) return;
+    const available = visibleCards();
+    const index = available.indexOf(card);
+    previous.disabled = index <= 0;
+    next.disabled = index === available.length - 1;
+    const label = `${index + 1} / ${available.length}`;
+    if (position.textContent !== label) position.textContent = label;
+  };
+
+  const selectCard = (card) => {
+    if (!card) return;
+    currentCard = card;
+    cards.forEach((item) => item.classList.toggle('is-current', item === card));
+    updateNavigation(card);
+  };
+
+  const nearestCard = () => visibleCards().reduce((nearest, card) => (
+    !nearest || Math.abs(cardLeft(card) - list.scrollLeft) < Math.abs(cardLeft(nearest) - list.scrollLeft)
+      ? card : nearest
+  ), null);
+
+  const settle = () => {
+    clearTimeout(settleTimer);
+    if (!list.clientWidth || requestedCard) return;
+    const card = nearestCard();
+    if (!card) return;
+    selectCard(card);
+  };
+
+  const cancelNavigation = (resumeSnap = true) => {
+    cancelAnimationFrame(animationFrame);
+    cancelAnimationFrame(scrollFrame);
+    animationFrame = null;
+    requestedCard = null;
+    if (resumeSnap) list.classList.remove('is-navigating');
+    clearTimeout(settleTimer);
+  };
+
+  const goToCard = (card) => {
+    if (!card || !list.clientWidth) return;
+    // Retarget without briefly re-enabling snap in the middle of an existing slide.
+    cancelNavigation(false);
+    list.classList.add('is-navigating');
+    const start = list.scrollLeft;
+    const destination = cardLeft(card);
+    const distance = destination - start;
+    requestedCard = card;
+    updateNavigation(card);
+
+    const finish = () => {
+      list.scrollLeft = destination;
+      animationFrame = null;
+      requestedCard = null;
+      list.classList.remove('is-navigating');
+      selectCard(card);
+    };
+
+    if (reducedMotion.matches || Math.abs(distance) < 1) {
+      finish();
+      return;
+    }
+
+    // One animation owns the scroll position; native snap resumes at the destination.
+    const duration = Math.min(520, 360 + Math.abs(distance) * .06);
+    let startedAt;
+    const animate = (time) => {
+      if (startedAt === undefined) startedAt = time;
+      const progress = Math.min((time - startedAt) / duration, 1);
+      const eased = 1 - (1 - progress) ** 3;
+      list.scrollLeft = start + distance * eased;
+      if (progress < 1) animationFrame = requestAnimationFrame(animate);
+      else finish();
+    };
+    animationFrame = requestAnimationFrame(animate);
+  };
+
+  const move = (direction) => {
+    const available = visibleCards();
+    const index = available.indexOf(requestedCard || currentCard);
+    goToCard(available[Math.max(0, Math.min(index + direction, available.length - 1))]);
+  };
+
+  previous.addEventListener('click', () => move(-1));
+  next.addEventListener('click', () => move(1));
+  list.addEventListener('keydown', (event) => {
+    if (event.target !== list || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    if (event.key === 'Home') goToCard(visibleCards()[0]);
+    else if (event.key === 'End') goToCard(visibleCards().at(-1));
+    else move(event.key === 'ArrowRight' ? 1 : -1);
+  });
+
+  list.addEventListener('wheel', (event) => {
+    // A horizontal trackpad gesture stays native and can interrupt an arrow slide.
+    if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) {
+      if (event.deltaX) cancelNavigation();
+      return;
+    }
+    // Touch devices keep vertical scrolling for reading taller project cards.
+    if (!mouseNavigation.matches || event.ctrlKey || !event.deltaY) return;
+    const direction = Math.sign(event.deltaY);
+    const available = visibleCards();
+    const index = available.indexOf(requestedCard || currentCard);
+    if (!wheelGesture && (index + direction < 0 || index + direction >= available.length)) return;
+    if (!wheelGesture) {
+      // Finish reading the current card before the next wheel gesture changes it.
+      const bounds = currentCard.getBoundingClientRect();
+      if (direction > 0 && bounds.bottom > window.innerHeight - 16) return;
+      if (direction < 0 && bounds.top < 16) return;
+    }
+    event.preventDefault();
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      wheelGesture = false;
+      wheelDistance = 0;
+    }, 240);
+    if (wheelGesture) return;
+    if (Math.sign(wheelDistance) !== direction) wheelDistance = 0;
+    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? list.clientHeight : 1;
+    wheelDistance += event.deltaY * unit;
+    if (Math.abs(wheelDistance) < 40) return;
+    wheelGesture = true;
+    move(direction);
+  }, { passive: false });
+
+  list.addEventListener('pointerdown', () => {
+    cancelNavigation();
+    selectCard(nearestCard());
+  }, { passive: true });
+  list.addEventListener('scroll', () => {
+    if (requestedCard) return;
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = requestAnimationFrame(() => selectCard(nearestCard()));
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(settle, 160);
+  }, { passive: true });
+  list.addEventListener('scrollend', settle);
+
+  const refreshLayout = () => {
+    if (!list.clientWidth) return;
+    const selected = requestedCard || currentCard;
+    cancelNavigation();
+    const available = visibleCards();
+    currentCard = available.includes(selected) ? selected : available[0];
+    selectCard(currentCard);
+    if (currentCard) list.scrollLeft = cardLeft(currentCard);
+    previousWidth = list.clientWidth;
+  };
+
+  const resizeObserver = new ResizeObserver(() => {
+    if (list.clientWidth !== previousWidth) refreshLayout();
+  });
+  resizeObserver.observe(list);
+  new MutationObserver(() => {
+    if (projectGallery.closest('article').classList.contains('active')) requestAnimationFrame(refreshLayout);
+  }).observe(projectGallery.closest('article'), { attributes: true, attributeFilter: ['class'] });
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches && requestedCard) goToCard(requestedCard);
+  });
+  document.fonts?.ready.then(refreshLayout);
+  refreshLayout();
+}
+
 const form = document.querySelector('[data-form]');
 const formButton = document.querySelector('[data-form-btn]');
 form?.addEventListener('input', () => {
@@ -141,11 +424,9 @@ form?.addEventListener('submit', (event) => {
   ].join('\n');
   const mailtoUrl = `mailto:james.clarke.mail@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   const status = document.querySelector('[data-form-status]');
-  const fallbackLink = document.querySelector('[data-form-mailto]');
-
-  if (fallbackLink) fallbackLink.href = mailtoUrl;
-  if (status) status.textContent = 'Your email app should open with your message ready. Review it, then send.';
-  window.location.href = mailtoUrl;
+  if (status) status.textContent = 'Your default mail app should open with your message ready. Review it, then send.';
+  // mailto: is handled by the operating system/browser's preferred mail client.
+  window.location.assign(mailtoUrl);
 });
 
 const mapBox = document.querySelector('[data-mapbox]');

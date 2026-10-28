@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 :root {
   --bg: #000;
   --panel: #0b0b0b;
@@ -12,7 +14,6 @@
   --radius: 6px;
   --speed: .25s ease;
 }
-
 *, *::before, *::after { box-sizing: border-box; }
 
 html { font-family: var(--mono); background: var(--bg); }
@@ -122,6 +123,7 @@ article.active { display: block; animation: fade .5s ease both; }
 .avatar-box { flex: 0 0 auto; margin: 0; overflow: hidden; border: 2px solid var(--green-dim); border-radius: 18px; background: #111; }
 .avatar-box img { width: 64px; }
 .info-content { min-width: 0; }
+.profile-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .info-content .name { margin: 0 0 8px; color: var(--text); font-size: 22px; }
 .info-content .name { text-shadow: 1px 0 var(--green), -1px 0 var(--green-dim); animation: text-glitch 7s steps(1, end) infinite; }
 .info-content .name::before,
@@ -165,6 +167,8 @@ article.active { display: block; animation: fade .5s ease both; }
 .about-text { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .about .article-title { margin-bottom: 18px; }
 .about-text > p { flex-basis: 100%; margin-top: 0; }
+.sidebar .profile-about { margin: 18px 0 0; padding-top: 18px; border-top: 1px solid var(--line); }
+.sidebar .profile-about > p { margin-bottom: 4px; }
 .about-portfolio-cta { display: flex; align-items: center; }
 .about-portfolio-button { padding: 12px 20px; border: 1px solid var(--green); border-radius: 4px; color: var(--green); background: transparent; box-shadow: none; font-size: 13px; letter-spacing: .5px; transition: color var(--speed), background var(--speed), box-shadow var(--speed), transform var(--speed); }
 .about-portfolio-button:hover { color: #08070a; background: var(--green); box-shadow: 0 0 18px rgba(194, 166, 255, .28); transform: translateY(-2px); }
@@ -248,15 +252,9 @@ article.active { display: block; animation: fade .5s ease both; }
 .project-item[data-order="6"] { --project-order: 6; }
 .project-item[data-order="7"] { --project-order: 7; }
 .project-detail { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 24px; padding: 20px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-light); }
-.project-img { position: relative; min-height: 0; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; }
+.project-img { position: relative; align-self: center; width: 100%; height: auto; min-height: 0; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; }
 .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--speed); }
 .project-detail .project-img img { object-fit: cover; object-position: center 50%; }
-.project-img.cptc-logo {
-  align-self: stretch;
-  height: 100%;
-  aspect-ratio: auto;
-  background: transparent;
-}
 .project-img.cptc-logo img {
   position: absolute;
   inset: 0;
@@ -274,11 +272,6 @@ article.active { display: block; animation: fade .5s ease both; }
 }
 .project-img.ncl-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.wrccdc-logo img { display: block; width: 93%; height: 93%; margin: 3.5% auto; object-fit: contain; }
-.project-img.sdsu-logo {
-  align-self: center;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-}
 .project-img.sdsu-logo img {
   position: absolute;
   inset: 0;
@@ -288,11 +281,6 @@ article.active { display: block; animation: fade .5s ease both; }
   object-fit: contain;
 }
 .project-img.homelab-photo img { display: block; position: relative; z-index: 1; width: 100%; height: 100%; margin: 0; object-fit: contain; object-position: center; transform: translateX(2%); }
-.project-img.homelab-photo { align-self: stretch; height: 100%; aspect-ratio: auto; }
-
-@media (max-width: 767px) {
-  .project-img.homelab-photo { height: auto; aspect-ratio: 4 / 3; }
-}
 .project-img.sdyc-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; filter: brightness(1.1) saturate(1.1); }
 .project-img.raices-logo img { display: block; width: 82%; height: 82%; margin: 9% auto; object-fit: contain; }
 .project-img.raices-logo .raices-logo-white { position: absolute; inset: 9%; z-index: 1; width: 82%; height: 82%; margin: 0; filter: brightness(0) invert(1); clip-path: inset(0 42% 0 0); pointer-events: none; }
@@ -354,7 +342,6 @@ textarea.form-input { min-height: 120px; margin-bottom: 16px; resize: vertical; 
   .resume-page-download { position: static; margin: 22px 0 0 auto; }
   .service-list, .project-list { grid-template-columns: 1fr; }
   .project-detail { grid-template-columns: minmax(0, 1fr); }
-  .project-img.cptc-logo { height: 220px; min-height: 180px; aspect-ratio: auto; }
   .project-detail-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
   .input-wrapper { grid-template-columns: 1fr; }
   .filter-list { display: none; }
@@ -521,6 +508,29 @@ article::before,
   border-left-width: 2px;
 }
 
+body.about-page:not(.about-terminal-open) .terminal { display: none; }
+.profile-terminal-toggle { display: none; }
+body.about-page .profile-terminal-toggle {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text);
+  background: #30334f;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+}
+.profile-terminal-toggle:hover { background: #444764; }
+.profile-terminal-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.profile-terminal-toggle svg { transition: transform .2s ease; }
+.profile-terminal-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+
 @media (min-width: 1024px) {
   main { position: relative; }
 
@@ -533,8 +543,100 @@ article::before,
   }
 
   .terminal { margin-top: 20px; }
+  body.about-page .navbar { right: 52px; }
   .main-content { position: static; }
   .main-content article.active { margin-top: 12px; }
+}
+
+/* Portfolio cards scroll horizontally so the competitions and projects read like a gallery. */
+.portfolio .projects {
+  min-width: 0;
+}
+
+.portfolio .project-list {
+  --project-width: min(820px, 88%);
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 20px;
+  min-width: 0;
+  margin: 0 -4px;
+  padding: 8px 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: auto;
+  scroll-padding-inline: 4px;
+  overscroll-behavior-inline: contain;
+  overflow-anchor: none;
+  scrollbar-width: none;
+}
+
+.portfolio .project-list.is-navigating { scroll-snap-type: none; }
+
+/* A consistent card height keeps the panel still throughout a horizontal slide. */
+.portfolio .project-detail { height: 100%; }
+
+/* Leave enough runway for the final card to land at the same inset as the first. */
+.portfolio .project-list::after {
+  content: "";
+  flex: 0 0 calc(100% - var(--project-width) - 20px);
+  order: 999;
+}
+
+.portfolio.active { padding-bottom: 16px; }
+
+/* Match the portfolio's 16px panel inset plus 8px gallery inset. */
+.contact.active { padding-bottom: 16px; }
+.contact .mapbox { margin-bottom: 0; }
+.contact .contact-form { margin-top: 18px; }
+
+.portfolio .project-item.active {
+  flex: 0 0 var(--project-width);
+  width: auto;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  animation: none;
+}
+
+.portfolio .project-list::-webkit-scrollbar { display: none; }
+
+.project-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.project-navigation[hidden] { display: none; }
+.project-scroll-hint { margin: 0; color: var(--green-dim); font-size: 12px; }
+.project-navigation-controls { display: flex; align-items: center; gap: 8px; }
+.project-position { min-width: 48px; margin-right: 4px; color: var(--green-dim); font-size: 12px; font-variant-numeric: tabular-nums; text-align: center; }
+.project-arrow {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  transition: background .2s ease, opacity .2s ease;
+}
+
+.project-arrow:hover:not(:disabled) { background: rgba(255, 255, 255, .18); }
+.project-arrow:disabled { opacity: .3; cursor: default; }
+.project-arrow:focus-visible,
+.portfolio .project-list:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+
+@media (max-width: 767px) {
+  .project-arrow { width: 44px; height: 44px; flex-basis: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio .project-list { transition: none; }
 }
 
 .sidebar,
@@ -762,6 +864,46 @@ article::before:first-letter { color: var(--red); }
 .project-title { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; }
 .service-project-icon { border-radius: 0; background: transparent; }
 
+/* Keep the About overview compact without constraining its content height. */
+.about .service-item-text { margin: 0; line-height: 1.55; }
+
+@media (min-width: 768px) {
+  .about { padding: 24px; }
+  .about::before {
+    height: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    margin: -24px -24px 16px;
+  }
+  .about .service-title { margin-bottom: 16px; font-size: 32px; line-height: 1.15; }
+  .about .service-list { gap: 14px; }
+  .about .service-item { align-items: flex-start; gap: 14px; padding: 14px; }
+  .about .service-project-icon { align-self: center; flex-basis: 64px; width: 64px; height: 64px; }
+  .about .service-cptc-icon { flex-basis: 112px; width: 112px; height: 80px; margin-top: 0; }
+  .about .service-item-title { margin-bottom: 6px; line-height: 1.3; }
+}
+
+@media (min-width: 1024px) {
+  body.about-page main { margin-top: 18px; margin-bottom: 18px; }
+  body.about-page .sidebar { margin-bottom: 12px; padding: 16px; }
+  body.about-page .sidebar::before {
+    height: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    margin: -16px -16px 12px;
+  }
+  body.about-page .sidebar-info { gap: 16px; }
+  body.about-page .avatar-box img { width: 56px; }
+  body.about-page .info-content .name { font-size: 24px; }
+  body.about-page .sidebar .profile-about { gap: 10px; margin-top: 10px; padding-top: 10px; }
+  body.about-page .profile-about > p { flex: 1 1 320px; margin: 0; line-height: 1.6; }
+  body.about-page .about-resume-download,
+  body.about-page .about-portfolio-button { padding: 12px 18px; }
+  body.about-page .sidebar-info_more { margin-top: 12px; }
+  body.about-page .sidebar .icon-box { flex-basis: 36px; width: 36px; height: 36px; }
+  body.about-page .sidebar .social-link { width: 36px; height: 36px; }
+}
+
 .timeline-list { border-left-color: rgba(255, 255, 255, .2); }
 .timeline-item::before { background: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, .17), 0 0 16px rgba(166, 207, 255, .7); }
 .timeline-list span,
@@ -861,3 +1003,100 @@ ul.skills-list.content-card {
   .info-content .title { white-space: normal; line-height: 1.5; width: auto; }
   .info_more-btn { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; margin-left: 0; }
 }
+
+/* Resume gallery: keep the overview compact while letting each section breathe. */
+@media (min-width: 768px) {
+  .resume.active {
+    display: block;
+    padding-bottom: 24px;
+  }
+
+  .resume .article-title { margin-bottom: 8px; }
+
+  .resume-scroll-hint {
+    margin: 0 0 12px;
+    color: rgba(226, 235, 250, .62);
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .resume-track {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    height: min(540px, calc(100vh - 360px));
+    min-height: 420px;
+    margin: 0 -6px;
+    padding: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 6px;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .resume-track::-webkit-scrollbar { display: none; }
+  .resume-track:focus-visible { outline: 2px solid rgba(255, 255, 255, .7); outline-offset: 3px; }
+
+  .resume-track > .timeline,
+  .resume-track > .resume-page-download {
+    float: none;
+    flex: 0 0 min(390px, 68vw);
+    width: auto;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 18px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .055));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16);
+  }
+
+  .resume-track > .timeline:nth-child(2) {
+    flex-basis: min(620px, 82vw);
+  }
+
+  .resume-track > .timeline .title-wrapper { margin-bottom: 14px; }
+  .resume-track > .timeline .title-wrapper .h3 { font-size: 18px; }
+  .resume-track > .timeline .icon-box { flex-basis: 34px; width: 34px; height: 34px; }
+  .resume-track > .timeline .timeline-list {
+    max-height: calc(100% - 52px);
+    margin-left: 10px;
+    padding-left: 16px;
+    overflow-y: auto;
+    scrollbar-color: rgba(255, 255, 255, .25) transparent;
+  }
+  .resume-track > .timeline .timeline-item { margin-bottom: 14px; }
+  .resume-track > .timeline .timeline-item-title { font-size: 13px; line-height: 1.35; }
+  .resume-track > .timeline .timeline-text { font-size: 11px; line-height: 1.45; }
+  .resume-track > .timeline .timeline-list span,
+  .resume-track > .timeline .skills-item-details { font-size: 11px; line-height: 1.45; }
+
+  .resume-track > .resume-page-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 250px;
+    position: static;
+    min-width: 250px;
+    padding: 20px;
+    font-size: 13px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .resume-track::after {
+    content: "";
+    flex: 0 0 1px;
+  }
+}
+
+@media (max-width: 767px) {
+  .resume-scroll-hint { display: none; }
+  .resume-track { display: block; }
+}
+
