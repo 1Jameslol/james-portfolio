@@ -331,9 +331,14 @@
           <h2 class="h2 article-title">Resume</h2>
         </header>
 
-        <p class="resume-scroll-hint">Scroll or swipe horizontally to explore</p>
+        <p class="resume-scroll-hint">Scroll to explore the full resume</p>
 
-        <div class="resume-track" tabindex="0" aria-label="Resume sections; use left and right arrow keys to explore">
+        <a class="resume-download resume-page-download" href="./Resume.pdf" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+          <span>Download Resume (PDF)</span>
+        </a>
+
+        <div class="resume-track" tabindex="0" aria-label="Full resume sections">
 
         <section class="timeline">
 
@@ -354,7 +359,9 @@
               <span>San Diego, CA · Expected May 2029</span>
 
               <p class="timeline-text">
-                Bachelor of Science, Computer Science. Minor: Mathematics. Relevant coursework: CS470 UNIX System Administration.
+                Bachelor of Science, BS<br>
+                Major: Computer Science Minor: Mathematics<br>
+                Relevant Coursework: CS470 UNIX System Administration
               </p>
 
             </li>
@@ -377,37 +384,15 @@
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">Regional Collegiate Penetration Testing Competition</h4>
-
-              <span>Penetration Testing Team Member · Pomona, CA · October 2026</span>
-
-              <p class="timeline-text">
-                Conducted authorized penetration testing, performing network reconnaissance and service enumeration to find attack paths. Documented vulnerabilities, technical evidence, and risk-based remediation recommendations in a team report.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
               <h4 class="h4 timeline-item-title">SDSU Cyber Defense Team</h4>
 
-              <span>Deputy System Administrator · San Diego, CA · April 2026 — Present</span>
+              <span>Deputy System Administrator · San Diego, CA · April 2026 - Present</span>
 
-              <p class="timeline-text">
-                Manage multi-OS virtualized infrastructure with WireGuard VPN, Windows Server, DNS/PKI, and Unix/Linux. Deployed and monitored VMs and services using Proxmox, Terraform, Ansible, Packer, Forgejo, Docker, and LXC. Participated in the WRCCDC Invitational as a Blue Team IT Team Member, defending Linux systems against simulated red-team attacks while analyzing logs, conducting Nmap scans, and supporting system hardening.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">San Diego Yacht Club</h4>
-
-              <span>Security Consultant · San Diego, CA · September 2026 — Present</span>
-
-              <p class="timeline-text">
-                Conducted a cybersecurity risk assessment of the SDYC staff technology practices, systems, workflows, training, and security controls to evaluate confidentiality, integrity, availability, and overall security posture. Reviewed access controls, least-privilege practices, and security frameworks to identify risks.
-              </p>
+              <ul class="resume-bullets">
+                <li>Manage multi-OS virtualized infrastructure with WireGuard VPN, Windows Server, DNS/PKI, and Unix/Linux</li>
+                <li>Deployed and monitored VMs and services using Proxmox, Terraform, Ansible, Packer, Forgejo, Docker, and LXC</li>
+                <li>Participated in the WRCCDC Invitational as a Blue Team IT Team Member, defending Linux systems against simulated red-team attacks while analyzing logs, conducting Nmap scans, and supporting system hardening</li>
+              </ul>
 
             </li>
 
@@ -415,20 +400,52 @@
 
               <h4 class="h4 timeline-item-title">SDSU Infrastructure Lab</h4>
 
-              <span>System Administrator · San Diego, CA · January 2026 — May 2026</span>
+              <span>System Administrator · San Diego, CA · Jan. 2026 - May 2026</span>
 
-              <p class="timeline-text">
-                Built a multi-OS lab with DNS, LDAP, PKI, SMTP/IMAP, NFS, nginx/Docker, and centralized logging. Deployed a multi-node Kubernetes cluster with fault-tolerant web services and automated failover.
-              </p>
+              <ul class="resume-bullets">
+                <li>Built a multi-OS lab with DNS, LDAP, PKI, SMTP/IMAP, NFS, nginx/Docker, and centralized logging</li>
+                <li>Deployed a multi-node Kubernetes cluster with fault-tolerant web services and automated failover</li>
+              </ul>
 
             </li>
 
             <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Regional Collegiate Penetration Testing Competition</h4>
+
+              <span>Penetration Testing Team Member · Pomona, CA · Oct. 2026</span>
+
+              <ul class="resume-bullets">
+                <li>Conducted authorized penetration testing, performing network recon, and service enumeration to find attack paths</li>
+                <li>Documented vulnerabilities, technical evidence, and risk-based remediation recommendations in a team report</li>
+              </ul>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">San Diego Yacht Club</h4>
+
+              <span>Security Consultant · San Diego, CA · Sept. 2026 - Present</span>
+
+              <ul class="resume-bullets">
+                <li>Conducted a cybersecurity risk assessment of the SDYC staff technology practices, systems, workflows, training, and security controls to evaluate confidentiality, integrity, availability, and overall security posture</li>
+                <li>Reviewed access controls, least-privilege practices, and security frameworks to identify risks</li>
+              </ul>
+
+            </li>
+
+            <li class="timeline-item">
+
               <h4 class="h4 timeline-item-title">Homelab</h4>
+
               <span>Personal Project</span>
-              <p class="timeline-text">
-                Built a Proxmox lab with pfSense, Kubernetes, Docker, Terraform, Ansible, WireGuard, and Tailscale, with dedicated resource pools for infrastructure, security tooling, monitoring, and operating system testing. Ran Suricata and Splunk to monitor network traffic and detect suspicious activity on my network.
-              </p>
+
+              <ul class="resume-bullets">
+                <li>Built a Proxmox lab with pfSense, Kubernetes, Docker, Terraform, Ansible, Wireguard, and Tailscale, with dedicated resource pools for infrastructure, security tooling, monitoring, and operating system testing</li>
+                <li>Ran Suricata and Splunk to monitor network traffic and detect suspicious activity on my network.</li>
+              </ul>
+
             </li>
 
           </ol>
@@ -453,7 +470,7 @@
             </li>
 
             <li class="timeline-item">
-              <h5 class="h5 skills-item-title">Security &amp; Log Analysis</h5>
+              <h5 class="h5 skills-item-title">Security Tools</h5>
               <p class="skills-item-details">Nmap, Wireshark, Splunk, Suricata</p>
             </li>
 
@@ -488,13 +505,13 @@
 
           <ol class="timeline-list">
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Google Cybersecurity Professional Certificate</h4>
-              <span>Certificate</span>
+              <h4 class="h4 timeline-item-title">CompTIA Security+</h4>
+              <span>Expected Dec. 2026</span>
             </li>
 
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">CompTIA Security+</h4>
-              <span>Expected Dec. 2026</span>
+              <h4 class="h4 timeline-item-title">Google Cybersecurity Professional Certificate</h4>
+              <span>Certificate</span>
             </li>
 
             <li class="timeline-item">
@@ -518,25 +535,14 @@
           <ol class="timeline-list">
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">AITP (Association for IT Professionals) <span>Member</span></h4>
-              <p class="timeline-text">
-                Member of the Association for IT Professionals.
-              </p>
             </li>
 
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">SDSU AI Club <span>Member</span></h4>
-              <p class="timeline-text">
-                Member of the SDSU AI Club.
-              </p>
             </li>
           </ol>
 
         </section>
-
-        <a class="resume-download resume-page-download" href="./Resume.pdf" target="_blank" rel="noopener noreferrer">
-          <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
-          <span>Download Resume (PDF)</span>
-        </a>
 
         </div>
 

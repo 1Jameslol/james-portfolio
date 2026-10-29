@@ -77,6 +77,38 @@
   flex-basis: max(0px, calc(100% - var(--project-width) - 16px));
 }
 
+/* On phones, let the portfolio read as a normal vertical page instead of a clipped gallery. */
+@media (max-width: 767px) {
+  .portfolio .project-list {
+    flex-direction: column;
+    align-items: stretch;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 4px 0 8px;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .portfolio .project-list::after {
+    display: none;
+  }
+
+  .portfolio .project-item.active {
+    flex: 0 0 auto;
+    width: 100%;
+    scroll-snap-align: none;
+  }
+
+  .portfolio .project-detail {
+    height: auto;
+  }
+
+  .portfolio .project-navigation-controls {
+    display: none;
+  }
+}
+
 .portfolio .project-detail {
   grid-template-columns: minmax(160px, .65fr) minmax(0, 1.65fr);
   align-items: center;
@@ -164,15 +196,23 @@
   line-height: 1.55;
 }
 
-/* Recolor only the wordmark overlays; the original colored symbols stay intact. */
-.portfolio .project-img.cptc-logo .cptc-text,
+/* Keep the original light-mode wordmark crisp; only the dark-mode overlay needs recoloring. */
 .portfolio .project-img.raices-logo .raices-logo-white {
+  display: none;
+}
+
+.portfolio .project-img.cptc-logo .cptc-text {
   filter: brightness(0);
   opacity: .82;
 }
 
-body[data-theme="dark"] .portfolio .project-img.cptc-logo .cptc-text,
+body[data-theme="dark"] .portfolio .project-img.cptc-logo .cptc-text {
+  filter: brightness(0) invert(1);
+  opacity: .94;
+}
+
 body[data-theme="dark"] .portfolio .project-img.raices-logo .raices-logo-white {
+  display: block;
   filter: brightness(0) invert(1);
   opacity: .94;
 }

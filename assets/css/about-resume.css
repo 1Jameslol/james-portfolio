@@ -77,6 +77,20 @@
   box-shadow: var(--glass-inset-shadow);
 }
 
+/* Keep the original widths while matching the two About action heights. */
+.sidebar .about-resume-download,
+.sidebar .about-portfolio-button {
+  min-height: 44px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .sidebar .about-resume-download,
+  .sidebar .about-portfolio-button {
+    height: 44px;
+  }
+}
+
 .about .service-title { font-weight: 700; letter-spacing: -.035em; }
 .about .service-item {
   border-color: var(--glass-border);
@@ -109,7 +123,6 @@ body[data-theme="dark"] .about .service-cptc-icon img.cptc-text {
 
 /* Keep the profile fixed while adapting the content below it to the CLI. */
 @media (min-width: 1024px) {
-  body.about-page .navbar { top: -4px; }
   body.about-page .main-content .about.active { padding: 28px; }
   body.about-page .main-content .about.active::before { margin: -28px -28px 22px; }
   body.about-page .about .service-title { margin-bottom: 22px; }
@@ -239,6 +252,89 @@ body[data-theme="dark"] .about .service-cptc-icon img.cptc-text {
 .resume .resume-track > .timeline .skills-item-details { margin: 0; }
 .resume .skills-title { margin-top: 0; }
 
+.resume .resume-bullets {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--glass-muted);
+  font-size: 13px;
+  line-height: 1.6;
+  list-style: disc;
+}
+
+.resume .resume-bullets li { margin-bottom: 4px; }
+.resume .resume-bullets li:last-child { margin-bottom: 0; }
+.resume .resume-bullets li::marker { color: var(--glass-accent); }
+
+.resume .organizations .timeline-item-title > span {
+  display: block;
+  margin-top: 4px;
+}
+
+/* Match the PDF action to the About-page resume button. */
+.resume .resume-page-download {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+  height: 44px;
+  min-height: 44px;
+  margin: 0 0 14px auto;
+  padding: 12px 18px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-control-radius);
+  color: var(--glass-accent);
+  background: var(--glass-accent-soft);
+  box-shadow: var(--glass-inset-shadow);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.resume .resume-page-download:hover {
+  border-color: var(--glass-accent);
+  color: var(--glass-accent);
+  background: var(--glass-surface-raised);
+  box-shadow: var(--glass-inset-shadow);
+}
+
+.resume .resume-page-download ion-icon { flex: 0 0 auto; font-size: 15px; }
+
+@media (min-width: 768px) {
+  .resume.active > header { margin-top: 12px; }
+  .resume .resume-track { margin: 58px -6px 0; }
+  .resume .resume-track {
+    height: auto;
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .resume .resume-track > .timeline {
+    height: auto;
+  }
+
+  .resume .resume-track > .timeline .timeline-list {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .resume .resume-page-download {
+    position: absolute;
+    top: 145px;
+    left: auto;
+    right: 24px;
+    bottom: auto;
+    margin: 0;
+  }
+}
+
 .resume .resume-track > .resume-page-download {
   position: static;
   display: flex;
@@ -313,4 +409,41 @@ body[data-theme="dark"] .about .service-cptc-icon img.cptc-text {
   .resume .resume-track > .timeline .timeline-text,
   .resume .resume-track > .timeline .skills-item-details { font-size: 14px; }
   .resume .resume-track > .resume-page-download { min-height: 170px; }
+}
+
+/* Keep desktop cards left-to-right while allowing Experience to show all content. */
+@media (min-width: 768px) {
+  .resume .resume-track {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 16px;
+    height: auto;
+    min-height: 0;
+    margin: 58px -6px 0;
+    padding: 6px;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x proximity;
+  }
+
+  .resume .resume-track > .timeline {
+    flex: 0 0 min(390px, 68vw);
+    width: auto;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    overflow: visible;
+    scroll-snap-align: start;
+  }
+
+  .resume .resume-track > .timeline:nth-child(2) {
+    flex-basis: min(620px, 82vw);
+  }
+
+  .resume .resume-track > .timeline .timeline-list {
+    max-height: none;
+    overflow: visible;
+  }
 }
