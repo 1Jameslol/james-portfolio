@@ -306,6 +306,41 @@ body[data-theme="dark"] .about .service-cptc-icon img.cptc-text {
 
 .resume .resume-page-download ion-icon { flex: 0 0 auto; font-size: 15px; }
 
+.resume .resume-pdf-viewer {
+  margin: 58px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
+  background: #fff;
+  box-shadow: var(--glass-inset-shadow);
+}
+
+.resume .resume-pdf-viewer iframe {
+  display: block;
+  width: 100%;
+  height: min(900px, calc(100vh - 210px));
+  min-height: 720px;
+  border: 0;
+  background: #fff;
+}
+
+.resume .resume-pdf-fallback {
+  margin: 0;
+  padding: 10px 14px;
+  color: var(--glass-muted);
+  background: var(--glass-surface-raised);
+  font-size: 12px;
+  text-align: center;
+}
+
+.resume .resume-pdf-fallback a {
+  color: var(--glass-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.resume .resume-track { display: none !important; }
+
 @media (min-width: 768px) {
   .resume.active > header { margin-top: 12px; }
   .resume .resume-track { margin: 58px -6px 0; }
@@ -332,6 +367,17 @@ body[data-theme="dark"] .about .service-cptc-icon img.cptc-text {
     right: 24px;
     bottom: auto;
     margin: 0;
+  }
+
+  .resume .resume-pdf-viewer { margin-top: 58px; }
+}
+
+@media (max-width: 767px) {
+  .resume .resume-pdf-viewer { margin-top: 16px; }
+
+  .resume .resume-pdf-viewer iframe {
+    height: 760px;
+    min-height: 0;
   }
 }
 
