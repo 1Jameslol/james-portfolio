@@ -318,8 +318,10 @@ body[data-theme="dark"] .about .service-cptc-icon img.cptc-text {
 .resume .resume-pdf-viewer iframe {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: min(900px, calc(100vh - 210px));
-  min-height: 720px;
+  height: min(900px, calc(100dvh - 210px));
+  min-height: 560px;
   border: 0;
   background: #fff;
 }
@@ -370,14 +372,16 @@ body[data-theme="dark"] .about .service-cptc-icon img.cptc-text {
   }
 
   .resume .resume-pdf-viewer { margin-top: 58px; }
+
 }
 
 @media (max-width: 767px) {
   .resume .resume-pdf-viewer { margin-top: 16px; }
 
   .resume .resume-pdf-viewer iframe {
-    height: 760px;
-    min-height: 0;
+    height: min(760px, calc(100vh - 220px));
+    height: min(760px, calc(100dvh - 220px));
+    min-height: 480px;
   }
 }
 
